@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Таймер до Нового года</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            text-align: center;
+            padding-top: 20%;
+        }
+        #timer {
+            font-size: 2.5em;
+            color: #333;
+        }
+    </style>
+    <script>
+        function startCountdown() {
+            // Устанавливаем дату и время Нового года в Московском времени (UTC+3)
+            const targetDate = new Date("2024-01-01T00:00:00+03:00"); // Новый год по московскому времени
+            const timerElement = document.getElementById('timer');
+
+            function updateTimer() {
+                const currentTime = new Date();
+                const timeLeft = targetDate - currentTime;
+
+                if (timeLeft <= 0) {
+                    timerElement.textContent = "🎉 С Новым Годом! 🎉";
+                    clearInterval(intervalId);
+                    return;
+                }
+
+                const days = Math.floor(timeLeft / (1000 * 60 * 60 * 24));
+                const hours = Math.floor((timeLeft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const minutes = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
+                const seconds = Math.floor((timeLeft % (1000 * 60)) / 1000);
+
+                // Форматируем отображение времени
+                timerElement.textContent = `${days} дней ${hours} ч ${minutes} мин ${seconds} сек`;
+            }
+
+            // Обновляем таймер каждую секунду
+            const intervalId = setInterval(updateTimer, 1000);
+            updateTimer();  // Обновляем сразу при загрузке
+        }
+
+        // Запуск отсчета по мере загрузки страницы
+        document.addEventListener("DOMContentLoaded", startCountdown);
+    </script>
+</head>
+<body>
+    <h1>Обратный отсчет до Нового года:</h1>
+    <div id="timer">Загрузка...</div>
+</body>
+</html>
