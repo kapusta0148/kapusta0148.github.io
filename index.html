@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Таймер</title>
+    <title>Таймер до Нового года</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -17,13 +17,15 @@
         }
     </style>
     <script>
-        function startCountdown(endTime) {
+        function startCountdown() {
+            // Устанавливаем дату и время Нового года в Московском времени (UTC+3)
+            const targetDate = new Date("2024-01-01T00:00:00+03:00"); // Новый год по московскому времени
+
             const timerElement = document.getElementById('timer');
-            const targetTime = new Date(endTime).getTime();
 
             function updateTimer() {
-                const currentTime = new Date().getTime();
-                const timeLeft = targetTime - currentTime;
+                const currentTime = new Date();
+                const timeLeft = targetDate - currentTime;
 
                 if (timeLeft <= 0) {
                     timerElement.textContent = "🎉 С Новым Годом! 🎉";
@@ -43,9 +45,7 @@
             updateTimer();
         }
 
-        document.addEventListener("DOMContentLoaded", () => {
-            startCountdown("2024-01-01T00:00:00Z");
-        });
+        document.addEventListener("DOMContentLoaded", startCountdown);
     </script>
 </head>
 <body>
@@ -53,4 +53,3 @@
     <div id="timer">Загрузка...</div>
 </body>
 </html>
-
