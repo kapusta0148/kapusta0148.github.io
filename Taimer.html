@@ -20,7 +20,6 @@
         function startCountdown() {
             // Устанавливаем дату и время Нового года в Московском времени (UTC+3)
             const targetDate = new Date("2024-01-01T00:00:00+03:00"); // Новый год по московскому времени
-
             const timerElement = document.getElementById('timer');
 
             function updateTimer() {
@@ -38,13 +37,16 @@
                 const minutes = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
                 const seconds = Math.floor((timeLeft % (1000 * 60)) / 1000);
 
+                // Форматируем отображение времени
                 timerElement.textContent = `${days} дней ${hours} ч ${minutes} мин ${seconds} сек`;
             }
 
+            // Обновляем таймер каждую секунду
             const intervalId = setInterval(updateTimer, 1000);
-            updateTimer();
+            updateTimer();  // Обновляем сразу при загрузке
         }
 
+        // Запуск отсчета по мере загрузки страницы
         document.addEventListener("DOMContentLoaded", startCountdown);
     </script>
 </head>
