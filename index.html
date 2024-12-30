@@ -27,7 +27,8 @@
                 const timeLeft = targetDate - currentTime;
 
                 if (timeLeft <= 0) {
-                    timerElement.textContent = "🎉 С Новым Годом! 🎉";
+                    // Когда отсчет закончен, выводим "0"
+                    timerElement.textContent = "0";
                     clearInterval(intervalId);
                     return;
                 }
