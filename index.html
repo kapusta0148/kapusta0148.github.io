@@ -3,71 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Таймер до Нового года</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
-            text-align: center;
-            padding-top: 20%;
-        }
-        #timer {
-            font-size: 2.5em;
-            color: #333;
-        }
-    </style>
-    <script>
-        function startCountdown() {
-            // Устанавливаем дату и время Нового года в Московском времени (UTC+3)
-            const targetDate = new Date("2025-01-01T00:00:00+03:00"); // Новый год по московскому времени
-            const timerElement = document.getElementById('timer');
-
-            function updateTimer() {
-                const currentTime = new Date();
-                const timeLeft = targetDate - currentTime;
-
-                if (timeLeft <= 0) {
-                    timerElement.textContent = "🎉 С Новым Годом! 🎉";
-                    clearInterval(intervalId);
-                    return;
-                }
-
-                const hours = Math.floor((timeLeft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-                const minutes = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
-                const seconds = Math.floor((timeLeft % (1000 * 60)) / 1000);
-
-                // Форматируем отображение времени
-                timerElement.textContent = `${hours} ч ${minutes} мин ${seconds} сек`;
-
-                // Отправляем оставшееся время в API
-                if (typeof fetch !== "undefined") {
-                    fetch('/api/time-left', {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json'
-                        },
-                        body: JSON.stringify({
-                            time_left: {
-                                hours: hours,
-                                minutes: minutes,
-                                seconds: seconds
-                            }
-                        })
-                    });
-                }
-            }
-
-            // Обновляем таймер каждую секунду
-            const intervalId = setInterval(updateTimer, 1000);
-            updateTimer();  // Обновляем сразу при загрузке
-        }
-
-        // Запуск отсчета по мере загрузки страницы
-        document.addEventListener("DOMContentLoaded", startCountdown);
-    </script>
+    <title>Таймер с сердечками</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <h1>Обратный отсчет до Нового года:</h1>
-    <div id="timer">Загрузка...</div>
+    <div class="background"></div>
+    <div class="container">
+        <h1>text</h1>
+        <div id="timer"></div>
+        <div class="heart-container">
+            <div id="heart" onclick="animateHeart()">❤️</div>
+            <div id="counter">0</div>
+        </div>
+    </div>
+    <script src="script.js"></script>
 </body>
 </html>
