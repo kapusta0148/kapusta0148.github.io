@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Таймер с сердечками</title>
     <link rel="stylesheet" href="styles.css">
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
 </head>
 <body>
     <div class="background"></div>
@@ -12,13 +13,11 @@
         <h1>Счастья молодожёнам</h1>
         <div id="timer"></div>
         <div class="heart-container">
-            <div id="heart" onclick="animateHeart()">❤️</div>
+            <div id="heart">❤️</div>
             <div id="counter">0</div>
         </div>
     </div>
     <!-- Подключение Firebase -->
-    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js"></script>
-    <script src="script.js"></script>
+    <script type="module" src="script.js"></script>
 </body>
 </html>
