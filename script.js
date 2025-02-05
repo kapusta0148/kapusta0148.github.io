@@ -5,7 +5,7 @@ import { getDatabase, ref, onValue, runTransaction } from "firebase/database";
 const firebaseConfig = {
   apiKey: "AIzaSyAY9BR5xQCB3IncsiRByuqmblXbrXeqXLI",
   authDomain: "lovekirill-4375f.firebaseapp.com",
-  databaseURL: "https://lovekirill-4375f-default-rtdb.firebaseio.com", // Проверьте эту ссылку
+  databaseURL: "https://lovekirill-4375f-default-rtdb.firebaseio.com",
   projectId: "lovekirill-4375f",
   storageBucket: "lovekirill-4375f.firebasestorage.app",
   messagingSenderId: "1070125583070",
@@ -44,6 +44,9 @@ function animateHeart() {
   const likesRef = ref(database, 'likes');
   runTransaction(likesRef, (currentLikes) => (currentLikes || 0) + 1);
 }
+
+// Добавляем обработчик события для сердечка
+document.getElementById('heart').addEventListener('click', animateHeart);
 
 // Отслеживаем изменения в базе данных
 const likesRef = ref(database, 'likes');
