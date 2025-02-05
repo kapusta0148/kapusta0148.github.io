@@ -5,7 +5,7 @@ import { getDatabase, ref, onValue, runTransaction } from "firebase/database";
 const firebaseConfig = {
   apiKey: "AIzaSyAY9BR5xQCB3IncsiRByuqmblXbrXeqXLI",
   authDomain: "lovekirill-4375f.firebaseapp.com",
-  databaseURL: "https://lovekirill-4375f-default-rtdb.firebaseio.com",
+  databaseURL: "https://lovekirill-4375f-default-rtdb.firebaseio.com", // Проверьте эту ссылку
   projectId: "lovekirill-4375f",
   storageBucket: "lovekirill-4375f.firebasestorage.app",
   messagingSenderId: "1070125583070",
