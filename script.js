@@ -1,6 +1,3 @@
-import { initializeApp } from "firebase/app";
-import { getDatabase, ref, onValue, runTransaction } from "firebase/database";
-
 // Конфигурация Firebase
 const firebaseConfig = {
   apiKey: "AIzaSyAY9BR5xQCB3IncsiRByuqmblXbrXeqXLI",
@@ -14,8 +11,8 @@ const firebaseConfig = {
 };
 
 // Инициализация Firebase
-const app = initializeApp(firebaseConfig);
-const database = getDatabase(app);
+const app = firebase.initializeApp(firebaseConfig);
+const database = firebase.database();
 
 // Таймер
 const startDate = new Date('2025-01-28T06:00:00');
@@ -41,16 +38,16 @@ function animateHeart() {
   setTimeout(() => heart.style.transform = 'scale(1)', 200);
 
   // Увеличиваем счётчик в Firebase
-  const likesRef = ref(database, 'likes');
-  runTransaction(likesRef, (currentLikes) => (currentLikes || 0) + 1);
+  const likesRef = database.ref('likes');
+  likesRef.transaction((currentLikes) => (currentLikes || 0) + 1);
 }
 
 // Добавляем обработчик события для сердечка
 document.getElementById('heart').addEventListener('click', animateHeart);
 
 // Отслеживаем изменения в базе данных
-const likesRef = ref(database, 'likes');
-onValue(likesRef, (snapshot) => {
+const likesRef = database.ref('likes');
+likesRef.on('value', (snapshot) => {
   const counter = snapshot.val() || 0;
   document.getElementById('counter').innerText = counter;
 });
