@@ -1,18 +1,4 @@
-// Конфигурация Firebase
-const firebaseConfig = {
-  apiKey: "AIzaSyAY9BR5xQCB3IncsiRByuqmblXbrXeqXLI",
-  authDomain: "lovekirill-4375f.firebaseapp.com",
-  databaseURL: "https://lovekirill-4375f-default-rtdb.firebaseio.com",
-  projectId: "lovekirill-4375f",
-  storageBucket: "lovekirill-4375f.firebasestorage.app",
-  messagingSenderId: "1070125583070",
-  appId: "1:1070125583070:web:f0c0c01d963e4cba4cd04f",
-  measurementId: "G-X6JYPTXMZ2"
-};
-
-// Инициализация Firebase
-const app = firebase.initializeApp(firebaseConfig);
-const database = firebase.database();
+const scriptUrl = 'https://script.google.com/macros/s/AKfycbxkLZf8faFWlsnsMqX8s0WlYFmpK4im6_y-zyzuvk-aaBv3fAxyahzJnpSlusNo2u-L7Q/exec';
 
 // Таймер
 const startDate = new Date('2025-01-28T06:00:00');
@@ -31,23 +17,35 @@ function updateTimer() {
 
 setInterval(updateTimer, 1000);
 
+// Получаем текущее количество лайков
+async function getLikes() {
+  try {
+    const response = await fetch(scriptUrl);
+    const likes = await response.text();
+    document.getElementById('counter').innerText = likes;
+  } catch (error) {
+    console.error('Ошибка при загрузке лайков:', error);
+  }
+}
+
+// Увеличиваем количество лайков
+async function incrementLikes() {
+  try {
+    const response = await fetch(scriptUrl, { method: 'POST' });
+    const likes = await response.text();
+    document.getElementById('counter').innerText = likes;
+  } catch (error) {
+    console.error('Ошибка при отправке лайка:', error);
+  }
+}
+
 // Обработчик для сердечка
-function animateHeart() {
+document.getElementById('heart').addEventListener('click', () => {
   const heart = document.getElementById('heart');
   heart.style.transform = 'scale(0.9)';
   setTimeout(() => heart.style.transform = 'scale(1)', 200);
-
-  // Увеличиваем счётчик в Firebase
-  const likesRef = database.ref('likes');
-  likesRef.transaction((currentLikes) => (currentLikes || 0) + 1);
-}
-
-// Добавляем обработчик события для сердечка
-document.getElementById('heart').addEventListener('click', animateHeart);
-
-// Отслеживаем изменения в базе данных
-const likesRef = database.ref('likes');
-likesRef.on('value', (snapshot) => {
-  const counter = snapshot.val() || 0;
-  document.getElementById('counter').innerText = counter;
+  incrementLikes();
 });
+
+// Загружаем количество лайков при загрузке страницы
+getLikes();
