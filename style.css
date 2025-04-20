@@ -1,0 +1,58 @@
+body {
+  font-family: 'Arial', sans-serif;
+  background: #fff8f0;
+  text-align: center;
+  padding: 50px;
+  color: #4b2e2e;
+}
+
+.title {
+  font-size: 2.5em;
+  margin-bottom: 20px;
+}
+
+.egg-container {
+  margin: 20px auto;
+  width: 200px;
+  height: 200px;
+}
+
+.egg-container img {
+  width: 100%;
+  height: auto;
+}
+
+button {
+  background-color: #ffcccb;
+  border: none;
+  padding: 15px 30px;
+  font-size: 1.5em;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+button:hover {
+  background-color: #ffa7a7;
+}
+
+#blessing {
+  margin-top: 30px;
+  font-size: 1.3em;
+  background: #fff0f5;
+  padding: 20px;
+  border-radius: 15px;
+  box-shadow: 0 0 10px rgba(255, 192, 203, 0.5);
+  opacity: 0;
+  transform: scale(0.8);
+  transition: all 0.5s ease;
+}
+
+#blessing.visible {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.hidden {
+  display: none;
+}
