@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Выбор Тарифа</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+</head>
+<body>
+    <div class="container">
+        <h1>Выберите подходящий тариф 💳</h1>
+        <form id="tariffForm">
+            <div class="tariff-option">
+                <input type="radio" id="tariff1" name="tariff" value="1_month" checked>
+                <label for="tariff1"><strong>1 Месяц</strong> - 100 руб.</label>
+                <p class="tariff-description">Идеально для того, чтобы попробовать и оценить все преимущества.</p>
+            </div>
+            <div class="tariff-option">
+                <input type="radio" id="tariff3" name="tariff" value="3_months">
+                <label for="tariff3"><strong>3 Месяца</strong> - 250 руб. (Экономия 50 руб!)</label>
+                <p class="tariff-description">Оптимальный выбор для тех, кто настроен на результат.</p>
+            </div>
+            <div class="tariff-option">
+                <input type="radio" id="tariff12" name="tariff" value="1_year">
+                <label for="tariff12"><strong>1 Год</strong> - 900 руб. (Лучшее предложение! Экономия 300 руб!)</label>
+                <p class="tariff-description">Максимум выгоды для долгосрочного погружения.</p>
+            </div>
+            <button type="button" id="payButton" class="button">Оплатить и получить доступ ✨</button>
+        </form>
+        <p id="statusMessage" class="status-message"></p>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // Инициализируем Telegram Web App API
+            Telegram.WebApp.ready();
+
+            const payButton = document.getElementById('payButton');
+            const tariffForm = document.getElementById('tariffForm');
+            const statusMessage = document.getElementById('statusMessage');
+
+            // Показываем кнопку "Оплатить", так как Web App готов
+            Telegram.WebApp.MainButton.setText('Оплатить и получить доступ');
+            Telegram.WebApp.MainButton.show();
+            Telegram.WebApp.MainButton.onClick(function() {
+                handlePayment();
+            });
+
+
+            // Обработчик для кнопки на странице (если вдруг MainButton не сработает или для тестов)
+            payButton.addEventListener('click', function () {
+                handlePayment();
+            });
+
+            function handlePayment() {
+                const selectedTariffInput = tariffForm.querySelector('input[name="tariff"]:checked');
+
+                if (selectedTariffInput) {
+                    const tariffValue = selectedTariffInput.value;
+                    const dataToSend = JSON.stringify({
+                        tariff_selected: tariffValue,
+                        status: "Ok_payment_initiated", // Более описательный статус
+                        timestamp: new Date().toISOString()
+                        // Сюда можно будет добавить ID пользователя из Telegram.WebApp.initDataUnsafe.user.id
+                        // user_id: Telegram.WebApp.initDataUnsafe.user ? Telegram.WebApp.initDataUnsafe.user.id : null
+                    });
+
+                    // Отправляем данные в Telegram бот
+                    Telegram.WebApp.sendData(dataToSend);
+
+                    // Сообщение пользователю (опционально, т.к. sendData часто закрывает WebApp)
+                    // statusMessage.textContent = 'Отлично! Данные отправляются в бота. Сейчас окно закроется...';
+                    // statusMessage.style.color = 'green';
+
+                    // Telegram.WebApp.close(); // Можно закрыть Web App после отправки данных
+                } else {
+                    statusMessage.textContent = '⚠️ Пожалуйста, выберите тариф.';
+                    statusMessage.style.color = 'red';
+                    // Можно также использовать Telegram.WebApp.showAlert('Пожалуйста, выберите тариф.');
+                }
+            }
+        });
+    </script>
+</body>
+</html>

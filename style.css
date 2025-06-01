@@ -1,53 +1,108 @@
 body {
-  font-family: 'Arial', sans-serif;
-  background: #fdf6ec;
-  text-align: center;
-  padding: 50px;
-  color: #5c2b2b;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    margin: 0;
+    padding: 15px;
+    background-color: var(--tg-theme-bg-color, #f0f0f0); /* Используем переменные Telegram для фона */
+    color: var(--tg-theme-text-color, #333); /* Используем переменные Telegram для текста */
+    display: flex;
+    flex-direction: column; /* Элементы будут идти сверху вниз */
+    align-items: center; /* Центрируем контейнер по горизонтали */
+    min-height: 100vh;
+    box-sizing: border-box;
 }
 
-.title {
-  font-size: 2.5em;
-  margin-bottom: 20px;
+.container {
+    background-color: var(--tg-theme-secondary-bg-color, #fff); /* Фон контейнера */
+    padding: 20px 25px;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    max-width: 700px;
+    width: 100%;
+    text-align: center;
+    margin-bottom: 20px; /* Отступ снизу для контейнера */
 }
 
-.egg {
-  width: 250px;
-  height: auto;
-  margin-bottom: 20px;
+h1 {
+    color: var(--tg-theme-button-color, #007bff); /* Цвет заголовка, можно из тем Telegram */
+    margin-bottom: 20px;
+    font-size: 1.8em;
 }
 
-button {
-  background-color: #ffe4e1;
-  border: none;
-  padding: 15px 30px;
-  font-size: 1.4em;
-  border-radius: 20px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
+p, ul {
+    margin-bottom: 15px;
+    line-height: 1.7;
+    text-align: left;
+    font-size: 1em;
 }
 
-button:hover {
-  background-color: #ffb6b6;
+ul {
+    padding-left: 25px;
+    list-style-type: '✅ '; /* Симпатичные маркеры списка */
 }
 
-#blessing {
-  margin-top: 30px;
-  font-size: 1.3em;
-  background: #fff0f5;
-  padding: 20px;
-  border-radius: 15px;
-  box-shadow: 0 0 10px rgba(255, 192, 203, 0.5);
-  opacity: 0;
-  transform: scale(0.8);
-  transition: all 0.5s ease;
+.button {
+    display: inline-block;
+    background-color: var(--tg-theme-button-color, #007bff); /* Основной цвет кнопки из темы Telegram */
+    color: var(--tg-theme-button-text-color, white); /* Цвет текста кнопки из темы Telegram */
+    padding: 12px 28px;
+    text-decoration: none;
+    border-radius: 8px;
+    font-size: 1.1em;
+    font-weight: bold;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.2s ease, transform 0.1s ease;
+    margin-top: 15px;
 }
 
-#blessing.visible {
-  opacity: 1;
-  transform: scale(1);
+.button:hover {
+    background-color: #0056b3; /* Затемнение при наведении, если тема не переопределяет */
+    transform: scale(1.02);
 }
 
-.hidden {
-  display: none;
+.button:active {
+    transform: scale(0.98);
+}
+
+.tariff-option {
+    background-color: var(--tg-theme-bg-color, #f9f9f9); /* Фон опции тарифа */
+    padding: 15px;
+    margin-bottom: 15px;
+    border-radius: 8px;
+    border: 1px solid var(--tg-theme-hint-color, #eee); /* Рамка опции тарифа */
+    text-align: left;
+    transition: box-shadow 0.2s ease;
+}
+
+.tariff-option:hover {
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+}
+
+.tariff-option input[type="radio"] {
+    margin-right: 12px;
+    transform: scale(1.2); /* Увеличим радио-кнопку */
+}
+
+.tariff-option label {
+    font-size: 1.1em;
+    font-weight: 500;
+    color: var(--tg-theme-text-color, #333);
+}
+
+.tariff-option .tariff-description {
+    font-size: 0.9em;
+    color: var(--tg-theme-hint-color, #555); /* Цвет описания */
+    margin-top: 5px;
+    margin-left: 25px; /* Небольшой отступ для описания */
+}
+
+.status-message {
+    margin-top: 20px;
+    font-weight: bold;
+    font-size: 1em;
+}
+
+/* Скрываем стандартную кнопку, если будем использовать MainButton Telegram */
+#payButton {
+   /* display: none; */ /* Раскомментируй, если используешь только Telegram.WebApp.MainButton */
 }
