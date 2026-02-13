@@ -3,22 +3,174 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Наши Услуги</title>
-    <link rel="stylesheet" href="style.css">
+    <title>Для тебя ❤️</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #ffe6e6; /* Нежно-розовый фон */
+            overflow: hidden;
+            font-family: 'Arial', sans-serif;
+        }
+
+        /* --- КОТИКИ НА ФОНЕ --- */
+        .cat {
+            position: absolute;
+            width: 150px;
+            opacity: 0.8;
+            z-index: 1;
+            transition: transform 0.5s;
+        }
+        .cat:hover { transform: scale(1.1); }
+        
+        /* Располагаем котиков по углам */
+        .cat-1 { top: 20px; left: 20px; }
+        .cat-2 { bottom: 20px; right: 20px; }
+        .cat-3 { top: 20px; right: 20px; transform: scaleX(-1); } /* Отразили зеркально */
+        .cat-4 { bottom: 20px; left: 20px; transform: scaleX(-1); }
+
+        /* --- СЕРДЦЕ --- */
+        .heart-container {
+            position: relative;
+            width: 300px;
+            height: 300px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 2;
+            transform: scale(0.8);
+            transition: transform 1s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        /* Рисуем сердце через CSS */
+        .heart-bg {
+            position: absolute;
+            width: 300px;
+            height: 300px;
+            background-color: #ff4d6d;
+            transform: rotate(-45deg);
+            border-radius: 20px; /* Скругление углов квадрата */
+            box-shadow: 0 0 40px rgba(255, 77, 109, 0.6);
+        }
+        .heart-bg::before,
+        .heart-bg::after {
+            content: "";
+            position: absolute;
+            width: 300px;
+            height: 300px;
+            background-color: #ff4d6d;
+            border-radius: 50%;
+        }
+        .heart-bg::before { top: -150px; left: 0; }
+        .heart-bg::after { top: 0; left: 150px; }
+
+        /* --- ФОТО И ТЕКСТ ВНУТРИ (Скрыты сначала) --- */
+        .hidden-content {
+            position: absolute;
+            z-index: 5;
+            text-align: center;
+            opacity: 0;
+            transform: scale(0.5);
+            transition: all 1.5s ease;
+            width: 200px;
+        }
+
+        .hidden-content img {
+            width: 180px;
+            height: 180px;
+            object-fit: cover;
+            border-radius: 50%; /* Круглая фотка */
+            border: 5px solid white;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        .hidden-content h1 {
+            color: white;
+            font-size: 28px;
+            margin-top: 15px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            font-family: 'Brush Script MT', cursive; /* Красивый шрифт */
+        }
+
+        /* --- КНОПКА --- */
+        #start-btn {
+            position: absolute;
+            z-index: 10;
+            padding: 15px 40px;
+            font-size: 24px;
+            background-color: white;
+            color: #ff4d6d;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            box-shadow: 0 10px 25px rgba(255, 77, 109, 0.4);
+            transition: all 0.3s;
+            animation: pulse 2s infinite;
+        }
+
+        #start-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 15px 35px rgba(255, 77, 109, 0.6);
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        /* Класс для активации анимации */
+        .heart-container.open {
+            transform: scale(1.2); /* Сердце увеличивается */
+        }
+        
+        .heart-container.open .hidden-content {
+            opacity: 1;
+            transform: scale(1); /* Фото появляется */
+        }
+
+    </style>
 </head>
 <body>
-    <div class="container">
-        <h1>Узнайте о наших эксклюзивных услугах 🚀</h1>
-        <p>Добро пожаловать! Мы предлагаем уникальные услуги, которые помогут вам [опишите кратко пользу ваших услуг, например, 'получить доступ к эксклюзивным материалам', 'улучшить свои знания в какой-то области' и т.д.]. Наша платформа создана для вашего удобства и развития.</p>
-        <p>Что вы получаете:</p>
-        <ul>
-            <li>Качественный контент</li>
-            <li>Регулярные обновления</li>
-            <li>Поддержку сообщества</li>
-            <li>Удобный доступ с любого устройства</li>
-        </ul>
-        <p>Не упустите шанс стать частью нашего сообщества и получить максимум пользы. Перейдите к выбору тарифа, чтобы начать!</p>
-        <a href="tariffs.html" class="button">Перейти к покупке 🛒</a>
+
+    <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExcDdtZ25lMm9uYmJtbnl5M200YjZlZ2V6bHZnMndwM3B3aTJ6aWk1ZSZlcD12MV9zdGlja2Vyc19zZWFyY2gmY3Q9cw/MDJ9IbxxvDUQM/giphy.gif" class="cat cat-1" alt="cat">
+    <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExcDdtZ25lMm9uYmJtbnl5M200YjZlZ2V6bHZnMndwM3B3aTJ6aWk1ZSZlcD12MV9zdGlja2Vyc19zZWFyY2gmY3Q9cw/MDJ9IbxxvDUQM/giphy.gif" class="cat cat-2" alt="cat">
+    <div class="heart-container" id="heart">
+        <div class="heart-bg"></div>
+        
+        <div class="hidden-content">
+            <img src="us.jpg" alt="Мы"> 
+            <h1>I Love You</h1>
+        </div>
     </div>
+
+    <button id="start-btn">Нажми меня ❤️</button>
+
+    <audio id="music" src="song.mp3"></audio>
+
+    <script>
+        const btn = document.getElementById('start-btn');
+        const heart = document.getElementById('heart');
+        const music = document.getElementById('music');
+
+        btn.addEventListener('click', () => {
+            // 1. Скрываем кнопку
+            btn.style.display = 'none';
+
+            // 2. Открываем сердце
+            heart.classList.add('open');
+
+            // 3. Работаем с музыкой
+            // Укажи здесь секунду, с которой начинается припев!
+            // Например, 62 секунды = 1 минута 2 секунды
+            music.currentTime = 62; 
+            music.volume = 0.5; // Громкость 50%
+            music.play();
+        });
+    </script>
 </body>
 </html>
