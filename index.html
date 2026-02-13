@@ -68,7 +68,7 @@
         .heart-bg::before { top: -150px; left: 0; }
         .heart-bg::after { top: 0; left: 150px; }
 
-        /* --- ФОТО И ТЕКСТ ВНУТРИ (Скрыты сначала) --- */
+/* --- ФОТО И ТЕКСТ ВНУТРИ (Скрыты сначала) --- */
         .hidden-content {
             position: absolute;
             z-index: 5;
@@ -76,12 +76,12 @@
             opacity: 0;
             transform: scale(0.5);
             transition: all 1.5s ease;
-            width: 200px;
+            width: 260px; /* СТАЛО БОЛЬШЕ (чтобы вместить новое фото) */
         }
 
         .hidden-content img {
-            width: 180px;
-            height: 180px;
+            width: 250px;  /* СТАЛО БОЛЬШЕ */
+            height: 250px; /* СТАЛО БОЛЬШЕ */
             object-fit: cover;
             border-radius: 50%; /* Круглая фотка */
             border: 5px solid white;
