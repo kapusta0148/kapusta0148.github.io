@@ -1,318 +1,286 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-    <link href="https://fonts.googleapis.com/css2?family=Bad+Script&family=Caveat:wght@400;700&display=swap" rel="stylesheet">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Тебе письмо ❤️</title>
+    <title>Для тебя ✨</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;500;600&display=swap" rel="stylesheet">
     <style>
-        :root {
-            --pink: #ff4d6d;
-            --light-pink: #ffe6e6;
-        }
-
         body {
             margin: 0;
             padding: 0;
-            background-color: var(--light-pink);
-            font-family: 'Arial', sans-serif;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            overflow-x: hidden;
-        }
-
-        /* --- ЭКРАН 1: КОНВЕРТ --- */
-        #scene-envelope {
-            height: 100vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            transition: opacity 1s ease;
-        }
-
-        .envelope-wrapper {
-            cursor: pointer;
-            position: relative;
-            width: 300px;
-            height: 200px;
-            background-color: #f3cfb3;
-            border-bottom-left-radius: 10px;
-            border-bottom-right-radius: 10px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-            transition: transform 0.3s;
-        }
-        .envelope-wrapper:hover { transform: scale(1.05); }
-
-        /* Клапан конверта */
-        .envelope-wrapper::before {
-            content: "";
-            position: absolute;
-            top: 0;
-            z-index: 2;
-            border-left: 150px solid transparent;
-            border-right: 150px solid transparent;
-            border-top: 100px solid #e6bc9c;
-            transform-origin: top;
-            transition: transform 0.5s 0.3s;
-        }
-
-        .opened.envelope-wrapper::before {
-            transform: rotateX(180deg);
-            z-index: 0;
-        }
-
-        .envelope-text {
-            position: absolute;
-            bottom: -50px;
-            width: 100%;
+            font-family: 'Montserrat', sans-serif;
+            background: linear-gradient(135deg, #fceae8 0%, #ebf4f5 100%);
+            color: #4a4a4a;
             text-align: center;
-            color: var(--pink);
-            font-weight: bold;
-            animation: pulse 2s infinite;
+            min-height: 100vh;
         }
 
-        /* --- ЭКРАН 2: ТЕКСТ ПИСЬМА --- */
-        #scene-letter {
-            display: none;
+        .container {
             width: 90%;
-            max-width: 600px;
-            background: white;
-            margin: 50px 0;
-            padding: 40px;
-            box-shadow: 0 10px 50px rgba(0,0,0,0.1);
-            border-radius: 5px;
-            opacity: 0;
-            transform: translateY(50px);
-            transition: all 1s ease;
-        }
-
-        .letter-content {
-            line-height: 1.8;
-            color: #444;
-            font-size: 22px; /* Чуть увеличим для рукописного шрифта */
-            white-space: pre-line; 
-            font-family: 'Bad Script', cursive; /* Наш новый шрифт */
-            text-align: left;
-        }
-
-        /* Стиль для последней строчки по центру и жирным */
-        .last-line {
-            display: block;
-            text-align: center;
-            font-weight: bold;
-            font-size: 26px;
-            margin-top: 30px;
-            color: var(--pink);
-            font-family: 'Caveat', cursive; /* Можно другой рукописный для акцента */
-        }
-
-        /* Маленькое сердечко внизу письма */
-        .mini-heart-trigger {
-            margin-top: 50px;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
             display: flex;
             flex-direction: column;
-            align-items: center;
-            cursor: pointer;
-        }
-
-        .small-heart {
-            width: 50px;
-            height: 50px;
-            background-color: var(--pink);
-            transform: rotate(-45deg);
-            position: relative;
-            animation: pulse 1.5s infinite;
-        }
-        .small-heart::before, .small-heart::after {
-            content: "";
-            width: 50px;
-            height: 50px;
-            background-color: var(--pink);
-            border-radius: 50%;
-            position: absolute;
-        }
-        .small-heart::before { top: -25px; left: 0; }
-        .small-heart::after { left: 25px; top: 0; }
-
-        /* --- ЭКРАН 3: ФИНАЛЬНОЕ СЕРДЦЕ (Твоя старая версия) --- */
-        #scene-final {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100vh;
             justify-content: center;
             align-items: center;
-            background-color: var(--light-pink);
-            z-index: 100;
+            min-height: 100vh;
         }
 
-        .heart-container {
-            position: relative;
-            width: 300px;
-            height: 300px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            transform: scale(0);
-            transition: transform 1.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-        }
+        .hidden { display: none !important; }
 
-        .heart-bg {
-            position: absolute;
-            width: 300px;
-            height: 300px;
-            background-color: var(--pink);
-            transform: rotate(-45deg);
-            border-radius: 20px;
-            box-shadow: 0 0 40px rgba(255, 77, 109, 0.6);
-        }
-        .heart-bg::before, .heart-bg::after {
-            content: "";
-            position: absolute;
-            width: 300px;
-            height: 300px;
-            background-color: var(--pink);
-            border-radius: 50%;
-        }
-        .heart-bg::before { top: -150px; left: 0; }
-        .heart-bg::after { top: 0; left: 150px; }
-
-        .hidden-content {
-            position: absolute;
-            z-index: 5;
-            text-align: center;
-            width: 260px;
-        }
-
-        .hidden-content img {
-            width: 250px;
-            height: 250px;
-            object-fit: cover;
-            border-radius: 50%;
-            border: 5px solid white;
-        }
-
-        .hidden-content h1 {
+        button {
+            background-color: #ff8b94;
             color: white;
-            font-size: 28px;
-            margin-top: 15px;
-            font-family: 'Brush Script MT', cursive;
+            border: none;
+            padding: 15px 30px;
+            font-size: 1.1rem;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 600;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: transform 0.2s, background-color 0.2s;
+            box-shadow: 0 4px 15px rgba(255,139,148,0.3);
+            margin-top: 20px;
+        }
+        button:hover { transform: scale(1.05); background-color: #ff7681; }
+
+        #start-screen, #timer-screen {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
         }
 
-        @keyframes pulse {
-            0% { transform: scale(1) rotate(-45deg); }
-            50% { transform: scale(1.1) rotate(-45deg); }
-            100% { transform: scale(1) rotate(-45deg); }
+        #memory-tape {
+            padding: 50px 0;
+            width: 100%;
+            animation: fadeIn 1s ease;
         }
 
-        /* Для текста и кнопки (без поворота) */
-        @keyframes pulseText {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.05); }
-            100% { transform: scale(1); }
+        #memory-tape h2 {
+            margin-bottom: 50px;
+            color: #ff8b94;
+        }
+
+        .memory-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 50px;
+            width: 100%;
+            animation: fadeIn 1s ease;
+        }
+
+        .memory-item:nth-child(even) {
+            flex-direction: row-reverse;
+        }
+
+        .memory-photo {
+            flex: 1;
+            padding: 10px;
+        }
+
+        .memory-photo img {
+            width: 100%;
+            max-width: 350px;
+            height: auto;
+            border-radius: 20px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            border: 5px solid white;
+            object-fit: cover;
+        }
+
+        .memory-text {
+            flex: 1;
+            padding: 20px;
+            text-align: left;
+            background: rgba(255, 255, 255, 0.7);
+            border-radius: 15px;
+            margin: 0 20px;
+            font-size: 1.1rem;
+            line-height: 1.5;
+        }
+
+        .memory-item:nth-child(even) .memory-text {
+            text-align: right;
+        }
+
+        .final-message {
+            background: white;
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            margin: 40px 0;
+            font-size: 1.2rem;
+            line-height: 1.6;
+            color: #333;
+        }
+
+        #timer-display {
+            font-size: 2.5rem;
+            font-weight: 600;
+            margin: 20px 0;
+            color: #ff8b94;
+        }
+
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+        @media (max-width: 600px) {
+            .memory-item, .memory-item:nth-child(even) {
+                flex-direction: column;
+                margin-bottom: 40px;
+            }
+            .memory-text {
+                text-align: center !important;
+                margin: 15px 0 0 0;
+            }
+            .memory-photo img {
+                max-width: 280px;
+            }
         }
     </style>
 </head>
 <body>
 
-    <div id="scene-envelope">
-        <div class="envelope-wrapper" id="envelope">
-            <div class="envelope-text" style="animation: pulseText 2s infinite;">Нажми, чтобы открыть ✉️</div>
+    <div class="container">
+        <!-- ПЕРВЫЙ ЭКРАН -->
+        <div id="start-screen">
+            <h1>У меня есть кое-что для тебя...</h1>
+            <button onclick="showMemories()">Открыть</button>
         </div>
-    </div>
 
-    <div id="scene-letter">
-        <div class="letter-content">
-            Привет, Лисичка! ❤️
-            
-            Тебе тут письмо пришло, прочитай его.
+        <!-- ЛЕНТА ВОСПОМИНАНИЙ -->
+        <div id="memory-tape" class="hidden">
+            <h2>Наши моменты ❤️</h2>
 
-            
-
-            <b>Каждый раз, когда вижу тебя, —
-            
-            Тает в сердце тёплая заря.
-            
-            Каждый раз, как слышу тебя, — 
-            
-            Теряюсь в тихой тишине дня.
-            
-            Каждый раз, когда обнимаю тебя, — 
-            
-            Замирает мир, и в нём лишь ты и я.
-            
-            Каждый раз когда говорю: «люблю тебя».</b> 
-            <span class="last-line">Я люблю тебя</span>
-            
-        </div>
-        
-        <div class="mini-heart-trigger" id="to-final">
-            <div class="small-heart"></div>
-            <p style="color: #ff4d6d; margin-top: 40px; font-weight: bold;">НАЖМИ НА МЕНЯ</p>
-        </div>
-    </div>
-
-    <div id="scene-final">
-        <div class="heart-container" id="final-heart">
-            <div class="heart-bg"></div>
-            <div class="hidden-content">
-                <img src="u.jpg" alt="Мы"> 
-                <h1>I Love You</h1>
+            <!-- Фото 1 -->
+            <div class="memory-item">
+                <div class="memory-photo"><img src="photo1.jpg" alt="Фото 1"></div>
+                <div class="memory-text">
+                    <p>Помнишь твой день рождения когда ты ставила пластинку ABBA на магнитофоне, я помню как ты радовалась</p>
+                </div>
             </div>
+
+            <!-- Фото 2 -->
+            <div class="memory-item">
+                <div class="memory-photo"><img src="photo2.jpg" alt="Фото 2"></div>
+                <div class="memory-text">
+                    <p>А ещё когда мы все вместе гуляли в апреле, ты меня ещё сфоткала классно</p>
+                </div>
+            </div>
+
+            <!-- Фото 3 -->
+            <div class="memory-item">
+                <div class="memory-photo"><img src="photo3.jpg" alt="Фото 3"></div>
+                <div class="memory-text">
+                    <p>хахахаха, а когда ты ко мне на работу пришла, мне было очень приятно</p>
+                </div>
+            </div>
+
+            <!-- Фото 4 -->
+            <div class="memory-item">
+                <div class="memory-photo"><img src="photo4.jpg" alt="Фото 4"></div>
+                <div class="memory-text">
+                    <p>А помнишь мою смешную фотку</p>
+                </div>
+            </div>
+
+            <!-- Фото 5 -->
+            <div class="memory-item">
+                <div class="memory-photo"><img src="photo5.jpg" alt="Фото 5"></div>
+                <div class="memory-text">
+                    <p>А помнишь как мы с тобой в усадьбе гуляли, столько смешного произошло, и мужик детей плавать учил, и я песню петь пытался</p>
+                </div>
+            </div>
+
+            <!-- Фото 6 -->
+            <div class="memory-item">
+                <div class="memory-photo"><img src="photo6.jpg" alt="Фото 6"></div>
+                <div class="memory-text">
+                    <p>АХХАХАХАХА стул в конце концов нашли</p>
+                </div>
+            </div>
+
+            <!-- Фото 7 -->
+            <div class="memory-item">
+                <div class="memory-photo"><img src="photo7.jpg" alt="Фото 7"></div>
+                <div class="memory-text">
+                    <p>Камыш я тебе сорвал, мы с тобой его потом расхерачили</p>
+                </div>
+            </div>
+
+            <!-- Фото 8 -->
+            <div class="memory-item">
+                <div class="memory-photo"><img src="photo8.jpg" alt="Фото 8"></div>
+                <div class="memory-text">
+                    <p>Ланчбокс в машине нашли, да и вообще классно тогда было</p>
+                </div>
+            </div>
+
+            <!-- Фото 9 -->
+            <div class="memory-item">
+                <div class="memory-photo"><img src="photo9.jpg" alt="Фото 9"></div>
+                <div class="memory-text">
+                    <p>сумочку твою анексировал</p>
+                </div>
+            </div>
+
+            <!-- Финальный текст -->
+            <div class="final-message">
+                <p>В общем не грусти давай, когда ты грустишь мне самому грустно. Хочется тебе поднять настроение, и это моя попытка это сделать. А теперь нажми на кнопку 👇</p>
+            </div>
+
+            <button onclick="showTimer()">Что дальше?</button>
+        </div>
+
+        <!-- ТАЙМЕР -->
+        <div id="timer-screen" class="hidden">
+            <h3>Осталось подождать совсем чуть-чуть:</h3>
+            <div id="timer-display">Загрузка...</div>
+            <p>...и я тебя обниму! 🤗</p>
         </div>
     </div>
-
-    <audio id="music" src="song.mp3"></audio>
 
     <script>
-        const envelope = document.getElementById('envelope');
-        const scene1 = document.getElementById('scene-envelope');
-        const scene2 = document.getElementById('scene-letter');
-        const scene3 = document.getElementById('scene-final');
-        const toFinalBtn = document.getElementById('to-final');
-        const finalHeart = document.getElementById('final-heart');
-        const music = document.getElementById('music');
+        function showMemories() {
+            document.getElementById('start-screen').classList.add('hidden');
+            document.body.style.display = 'block'; 
+            document.getElementById('memory-tape').classList.remove('hidden');
+            window.scrollTo(0, 0);
+        }
 
-        // 1. Открываем конверт и показываем письмо
-        envelope.addEventListener('click', () => {
-            envelope.classList.add('opened');
-            
-            setTimeout(() => {
-                scene1.style.opacity = '0';
-                setTimeout(() => {
-                    scene1.style.display = 'none';
-                    scene2.style.display = 'block';
-                    // Плавное появление письма
-                    setTimeout(() => {
-                        scene2.style.opacity = '1';
-                        scene2.style.transform = 'translateY(0)';
-                    }, 100);
-                }, 1000);
-            }, 800);
-        });
+        function showTimer() {
+            document.getElementById('memory-tape').classList.add('hidden');
+            document.body.style.display = 'flex'; 
+            document.getElementById('timer-screen').classList.remove('hidden');
+            window.scrollTo(0, 0);
+            startCountdown();
+        }
 
-        // 2. Переход к финальному сердцу
-        toFinalBtn.addEventListener('click', () => {
-            scene2.style.opacity = '0';
-            
-            setTimeout(() => {
-                scene2.style.display = 'none';
-                scene3.style.display = 'flex';
-                
-                // Активируем финальное сердце и музыку
-                setTimeout(() => {
-                    finalHeart.style.transform = 'scale(1.2)';
-                    
-                    // Настройка музыки (62 - это секунда припева)
-                    music.currentTime = 15; 
-                    music.play();
-                }, 100);
+        function startCountdown() {
+            // Дата: 1 апреля 2026 года, 14:45
+            const targetDate = new Date("April 1, 2026 14:45:00").getTime();
+
+            const timerInterval = setInterval(function() {
+                const now = new Date().getTime();
+                const distance = targetDate - now;
+
+                const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+                const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+                document.getElementById("timer-display").innerHTML = 
+                    `${days}д ${hours}ч ${minutes}м ${seconds}с`;
+
+                if (distance < 0) {
+                    clearInterval(timerInterval);
+                    document.getElementById("timer-display").innerHTML = "УЖЕ СКОРО! ❤️";
+                }
             }, 1000);
-        });
+        }
     </script>
 </body>
 </html>
