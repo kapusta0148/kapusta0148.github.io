@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Кто хочет стать стобалльником? — Последний Звонок</title>
-    <!-- Подключаем шрифты: Russo One для игрового стиля и Montserrat для текстов -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Russo+One&display=swap" rel="stylesheet">
@@ -30,10 +29,19 @@
             min-height: 100vh;
             font-family: 'Montserrat', sans-serif;
             color: #ffffff;
-            overflow-x: hidden;
+            overflow: hidden; /* Скрываем полосы прокрутки для полноэкранного режима */
         }
 
-        /* Контейнер презентации с фиксированными пропорциями 16:9 */
+        /* Обертка для адаптивного масштабирования под размер окна */
+        .scale-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100vw;
+            height: 100vh;
+        }
+
+        /* Контейнер презентации с фиксированными рабочими пропорциями 16:9 */
         .presentation-wrapper {
             width: 1280px;
             height: 720px;
@@ -43,6 +51,8 @@
             border-radius: 16px;
             box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.8), 0 0 40px rgba(0, 240, 255, 0.1);
             overflow: hidden;
+            transform-origin: center center; /* Точка масштабирования */
+            flex-shrink: 0;
         }
 
         .slide-container {
@@ -93,14 +103,14 @@
 
         .slide-container h1 {
             color: #ffffff;
-            font-size: 48px;
+            font-size: 44px;
             text-shadow: 0 0 15px rgba(255, 255, 255, 0.2);
             text-align: center;
         }
 
         .slide-title {
             color: #ffd700;
-            font-size: 28px;
+            font-size: 26px;
             font-weight: 400;
             border-bottom: 2px solid rgba(229, 193, 88, 0.2);
             padding-bottom: 8px;
@@ -197,7 +207,7 @@
             grid-template-columns: 1fr 240px;
             gap: 30px;
             width: 100%;
-            height: 320px;
+            height: 340px;
         }
 
         .main-game-board {
@@ -219,11 +229,58 @@
             padding: 15px 25px;
             text-align: center;
             display: flex;
+            flex-direction: column;
             align-items: center;
             justify-content: center;
-            min-height: 100px;
+            min-height: 120px;
             white-space: pre-line;
             line-height: 1.4;
+        }
+
+        /* Красивая строчная формула математики */
+        .math-expr {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 4px;
+            font-size: 22px;
+            margin-top: 10px;
+            font-family: 'Times New Roman', serif;
+            font-style: italic;
+        }
+        .math-fraction {
+            display: inline-flex;
+            flex-direction: column;
+            align-items: center;
+            vertical-align: middle;
+            font-size: 18px;
+            line-height: 1;
+            padding: 0 4px;
+        }
+        .math-num {
+            border-bottom: 2px solid #ffffff;
+            padding-bottom: 2px;
+            width: 100%;
+            text-align: center;
+        }
+        .math-den {
+            padding-top: 2px;
+            width: 100%;
+            text-align: center;
+        }
+        .math-parentheses {
+            font-size: 32px;
+            font-weight: 300;
+            font-style: normal;
+            line-height: 1;
+            user-select: none;
+        }
+        .math-supscript {
+            font-size: 15px;
+            align-self: flex-start;
+            margin-top: -8px;
+            margin-left: 2px;
+            font-style: normal;
         }
 
         /* Сетка ответов 2x2 */
@@ -344,6 +401,7 @@
             letter-spacing: 1px;
             display: none; /* Показывается только при правильном ответе */
             animation: bounceIn 0.5s ease;
+            margin-top: 10px;
         }
 
         .next-question-btn:hover {
@@ -385,62 +443,6 @@
             color: #ffffff;
         }
 
-        .presenter-cue-card {
-            background: linear-gradient(135deg, #0e1236 0%, #050614 100%);
-            border-left: 4px solid #00f0ff;
-            border-radius: 8px;
-            box-shadow: 0 4px 15px rgba(0, 240, 255, 0.05);
-            padding: 12px 20px;
-            width: 100%;
-            margin-top: 15px;
-        }
-
-        .presenter-cue-card h4 {
-            color: #00f0ff;
-            font-family: 'Russo One', sans-serif;
-            font-size: 12px;
-            margin: 0 0 5px 0;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-
-        .presenter-cue-card p {
-            color: #94a3b8;
-            font-size: 13px;
-            font-style: italic;
-            line-height: 1.4;
-            margin: 0;
-        }
-
-        /* Слайд-заставка */
-        .millionaire-logo {
-            align-items: center;
-            background: radial-gradient(circle, #202763 0%, #0a0c24 70%);
-            border: 4px double #ffd700;
-            border-radius: 50%;
-            box-shadow: 0 0 35px rgba(255, 215, 0, 0.3);
-            display: flex;
-            flex-direction: column;
-            height: 220px;
-            justify-content: center;
-            margin-bottom: 20px;
-            position: relative;
-            width: 220px;
-        }
-
-        .millionaire-logo h2 {
-            color: #ffffff;
-            font-size: 18px;
-            text-align: center;
-            line-height: 1.2;
-        }
-
-        .millionaire-logo i {
-            color: #ffd700;
-            font-size: 35px;
-            margin-top: 8px;
-        }
-
         /* Двухколоночный слайд для правил */
         .two-column-rules {
             display: grid;
@@ -474,330 +476,291 @@
             margin-bottom: 8px;
             font-size: 14px;
         }
-
-        /* Изображения */
-        .image-container-right {
-            border: 2px solid #1e295d;
-            border-radius: 12px;
-            height: 250px;
-            overflow: hidden;
-            width: 100%;
-        }
-
-        .image-container-right img {
-            height: 100%;
-            object-fit: cover;
-            width: 100%;
-        }
     </style>
 </head>
 <body>
 
-    <!-- Главная обертка презентации -->
-    <div class="presentation-wrapper">
-        <div class="bg-decor"></div>
+    <div class="scale-container">
+        
+        <div class="presentation-wrapper" id="presentation">
+            <div class="bg-decor"></div>
 
-        <!-- Глобальный блок подсказок (отрисовывается сверху) -->
-        <div class="lifelines">
-            <div class="lifeline-btn" id="lifeline-5050" onclick="useFiftyFifty()" title="Убрать 2 неверных ответа">50:50</div>
-            <div class="lifeline-btn" id="lifeline-phone" onclick="usePhoneFriend()" title="Звонок другу"><i class="fa-solid fa-phone"></i></div>
-            <div class="lifeline-btn" id="lifeline-audience" onclick="useAudience()" title="Помощь зала"><i class="fa-solid fa-users"></i></div>
-        </div>
-
-        <!-- ==========================================
-             СЛАЙД 1: Приветственная заставка 
-             ========================================== -->
-        <div class="slide-container active" id="slide1">
-            <div class="content-area">
-                <div class="millionaire-logo">
-                    <h2>КТО ХОЧЕТ<br>СТАТЬ<br><span style="color: #ffd700;">СТОБАЛЛЬНИКОМ?</span></h2>
-                    <i class="fa-solid fa-graduation-cap"></i>
-                </div>
-                <h1>Кто хочет стать стобалльником?</h1>
-                <p style="color: #8892b0; font-size: 18px; text-align: center; margin-top: 10px;">
-                    Интеллектуальное шоу к празднику Последнего Звонка
-                </p>
-                <button class="next-question-btn" style="display: block; margin-top: 15px;" onclick="nextSlide()">Начать игру</button>
+            <div class="lifelines">
+                <div class="lifeline-btn" id="lifeline-5050" onclick="useFiftyFifty()" title="Убрать 2 неверных ответа">50:50</div>
+                <div class="lifeline-btn" id="lifeline-phone" onclick="usePhoneFriend()" title="Звонок другу"><i class="fa-solid fa-phone"></i></div>
+                <div class="lifeline-btn" id="lifeline-audience" onclick="useAudience()" title="Помощь зала"><i class="fa-solid fa-users"></i></div>
             </div>
-        </div>
 
-        <!-- ==========================================
-             СЛАЙД 2: Правила игры 
-             ========================================== -->
-        <div class="slide-container" id="slide2">
-            <h2 class="slide-title">Правила игры и подсказки</h2>
-            <div class="content-area">
-                <div class="two-column-rules">
-                    <div class="rules-card">
-                        <h3><i class="fa-solid fa-scroll"></i> Формат Игры</h3>
-                        <ul>
-                            <li><strong>6 каверзных вопросов</strong> из реальной программы ЕГЭ по разным предметам.</li>
-                            <li>Восхождение по шкале баллов от 10 до заветных <strong>100 баллов</strong>.</li>
-                            <li>Каждый правильный ответ открывает путь к следующему вопросу.</li>
-                            <li>При ошибке мы не сбрасываем баллы — ведь на Последнем звонке у всех должен быть шанс отыграться!</li>
-                        </ul>
-                    </div>
-                    
-                    <div class="rules-card">
-                        <h3><i class="fa-solid fa-circle-question"></i> Доступные подсказки</h3>
-                        <ul style="list-style-type: none; padding-left: 0;">
-                            <li style="margin-bottom: 10px;">
-                                <strong style="color: #00f0ff;">50/50:</strong> Убирает 2 случайных неверных ответа.
-                            </li>
-                            <li style="margin-bottom: 10px;">
-                                <strong style="color: #00f0ff;">Звонок учителю:</strong> Дается право на помощь учителя.
-                            </li>
-                            <li>
-                                <strong style="color: #00f0ff;">Помощь зала:</strong> Дается право посоветоваться с любым человеком в зале.
-                            </li>
-                        </ul>
-                    </div>
+            <div class="slide-container active" id="slide1">
+                <div class="content-area">
+                    <h1 style="color: #ffd700; font-size: 54px; margin-bottom: 10px;">КТО ХОЧЕТ СТАТЬ СТОБАЛЛЬНИКОМ?</h1>
+                    <p style="color: #8892b0; font-size: 20px; text-align: center; margin-top: 10px;">
+                        Интеллектуальное шоу к празднику Последнего Звонка
+                    </p>
+                    <button class="next-question-btn" style="display: block; margin-top: 30px;" onclick="nextSlide()">Начать игру</button>
                 </div>
-                <button class="next-question-btn" style="display: block; margin-top: 15px;" onclick="nextSlide()">К первому вопросу</button>
             </div>
-        </div>
 
-        <!-- ==========================================
-             СЛАЙД 3: Вопрос 1 — Русский язык (10 баллов)
-             ========================================== -->
-        <div class="slide-container" id="slide3" data-slide-type="question" data-question-index="1">
-            <h2 class="slide-title">Русский Язык — Уровень 1 (10 баллов)</h2>
-            <div class="content-area">
-                <div class="game-layout">
-                    <div class="main-game-board">
-                        <div class="question-box">Укажите вариант ответа, в котором НЕВЕРНО выделена буква, обозначающая ударный гласный звук:</div>
-                        <div class="answers-grid">
-                            <div class="answer-option" data-correct="false" data-opt="A" onclick="checkAnswer(this)"><span>А:</span> КвартАл</div>
-                            <div class="answer-option" data-correct="true" data-opt="B" onclick="checkAnswer(this)"><span>Б:</span> МозАичный</div>
-                            <div class="answer-option" data-correct="false" data-opt="C" onclick="checkAnswer(this)"><span>В:</span> МусоропровОд</div>
-                            <div class="answer-option" data-correct="false" data-opt="D" onclick="checkAnswer(this)"><span>Г:</span> ПартЕр</div>
+            <div class="slide-container" id="slide2">
+                <h2 class="slide-title">Правила игры и подсказки</h2>
+                <div class="content-area">
+                    <div class="two-column-rules">
+                        <div class="rules-card">
+                            <h3><i class="fa-solid fa-scroll"></i> Формат Игры</h3>
+                            <ul>
+                                <li><strong>6 каверзных вопросов</strong> из реальной программы ЕГЭ по разным предметам.</li>
+                                <li>Восхождение по шкале баллов от 10 до заветных <strong>100 баллов</strong>.</li>
+                                <li>Каждый правильный ответ открывает путь к следующему вопросу.</li>
+                                <li>При ошибке мы не сбрасываем баллы — на Последнем звонке у всех должен быть шанс отыграться!</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="rules-card">
+                            <h3><i class="fa-solid fa-circle-question"></i> Доступные подсказки</h3>
+                            <ul style="list-style-type: none; padding-left: 0;">
+                                <li style="margin-bottom: 10px;">
+                                    <strong style="color: #00f0ff;">50/50:</strong> Убирает 2 случайных неверных ответа.
+                                </li>
+                                <li style="margin-bottom: 10px;">
+                                    <strong style="color: #00f0ff;">Звонок учителю:</strong> Дается право на помощь учителя.
+                                </li>
+                                <li>
+                                    <strong style="color: #00f0ff;">Помощь зала:</strong> Дается право посоветоваться с аудиторией.
+                                </li>
+                            </ul>
                         </div>
                     </div>
-                    
-                    <!-- Боковое дерево очков -->
-                    <div class="points-tree">
-                        <div class="points-step" data-step="100"><span>100 БАЛЛОВ</span> <i class="fa-solid fa-star"></i></div>
-                        <div class="points-step" data-step="80"><span>80 БАЛЛОВ</span></div>
-                        <div class="points-step" data-step="60"><span>60 БАЛЛОВ</span></div>
-                        <div class="points-step" data-step="40"><span>40 БАЛЛОВ</span></div>
-                        <div class="points-step" data-step="20"><span>20 БАЛЛОВ</span></div>
-                        <div class="points-step active" data-step="10"><span>10 БАЛЛОВ</span> <i class="fa-solid fa-chevron-left"></i></div>
-                    </div>
+                    <button class="next-question-btn" style="display: block; margin-top: 25px;" onclick="nextSlide()">К первому вопросу</button>
                 </div>
-                <button class="next-question-btn" onclick="nextSlide()">Следующий вопрос</button>
             </div>
-        </div>
 
-        <!-- ==========================================
-             СЛАЙД 4: Вопрос 2 — Русский язык (20 баллов)
-             ========================================== -->
-        <div class="slide-container" id="slide4" data-slide-type="question" data-question-index="2">
-            <h2 class="slide-title">Русский Язык — Уровень 2 (20 баллов)</h2>
-            <div class="content-area">
-                <div class="game-layout">
-                    <div class="main-game-board">
-                        <div class="question-box" style="font-size:14px; line-height:1.25;">Укажите варианты ответов, в которых во всех словах одного ряда пропущена одна и та же буква. Запишите номера ответов.
- 
+            <div class="slide-container" id="slide3" data-slide-type="question" data-question-index="1">
+                <h2 class="slide-title">Русский Язык — Уровень 1 (10 баллов)</h2>
+                <div class="content-area">
+                    <div class="game-layout">
+                        <div class="main-game-board">
+                            <div class="question-box">Укажите вариант ответа, в котором НЕВЕРНО выделена буква, обозначающая ударный гласный звук:</div>
+                            <div class="answers-grid">
+                                <div class="answer-option" data-correct="false" data-opt="A" onclick="checkAnswer(this)"><span>А:</span> КвартАл</div>
+                                <div class="answer-option" data-correct="true" data-opt="B" onclick="checkAnswer(this)"><span>Б:</span> МозАичный</div>
+                                <div class="answer-option" data-correct="false" data-opt="C" onclick="checkAnswer(this)"><span>В:</span> МусоропровОд</div>
+                                <div class="answer-option" data-correct="false" data-opt="D" onclick="checkAnswer(this)"><span>Г:</span> ПартЕр</div>
+                            </div>
+                        </div>
+                        
+                        <div class="points-tree">
+                            <div class="points-step" data-step="100"><span>100 БАЛЛОВ</span> <i class="fa-solid fa-star"></i></div>
+                            <div class="points-step" data-step="80"><span>80 БАЛЛОВ</span></div>
+                            <div class="points-step" data-step="60"><span>60 БАЛЛОВ</span></div>
+                            <div class="points-step" data-step="40"><span>40 БАЛЛОВ</span></div>
+                            <div class="points-step" data-step="20"><span>20 БАЛЛОВ</span></div>
+                            <div class="points-step active" data-step="10"><span>10 БАЛЛОВ</span> <i class="fa-solid fa-chevron-left"></i></div>
+                        </div>
+                    </div>
+                    <button class="next-question-btn" onclick="nextSlide()">Следующий вопрос</button>
+                </div>
+            </div>
+
+            <div class="slide-container" id="slide4" data-slide-type="question" data-question-index="2">
+                <h2 class="slide-title">Русский Язык — Уровень 2 (20 баллов)</h2>
+                <div class="content-area">
+                    <div class="game-layout">
+                        <div class="main-game-board">
+                            <div class="question-box" style="font-size:14px; line-height:1.25;">Укажите варианты ответов, в которых во всех словах одного ряда пропущена одна и та же буква. Запишите номера ответов.
+     
 1) прил..скать, п..лисадник, экз..менатор 
 2) изв..ниться, св..ла (ребёнка по лестнице), ун..кальный 
 3) к..нонада, заг..дать, выр..внять (стены)
 4) ч..столюбие, гал..рея, оп..реться
 5) зап..рать (на замок), оф..цер, ст..лист</div>
-                        <div class="answers-grid">
-                            <div class="answer-option" data-correct="false" data-opt="A" onclick="checkAnswer(this)"><span>А:</span> 2, 3, 5</div>
-                            <div class="answer-option" data-correct="true" data-opt="B" onclick="checkAnswer(this)"><span>Б:</span> 1, 4, 5</div>
-                            <div class="answer-option" data-correct="false" data-opt="C" onclick="checkAnswer(this)"><span>В:</span> 1, 2, 4</div>
-                            <div class="answer-option" data-correct="false" data-opt="D" onclick="checkAnswer(this)"><span>Г:</span> 3, 4, 5</div>
+                            <div class="answers-grid">
+                                <div class="answer-option" data-correct="false" data-opt="A" onclick="checkAnswer(this)"><span>А:</span> 2, 3, 5</div>
+                                <div class="answer-option" data-correct="true" data-opt="B" onclick="checkAnswer(this)"><span>Б:</span> 1, 4, 5</div>
+                                <div class="answer-option" data-correct="false" data-opt="C" onclick="checkAnswer(this)"><span>В:</span> 1, 2, 4</div>
+                                <div class="answer-option" data-correct="false" data-opt="D" onclick="checkAnswer(this)"><span>Г:</span> 3, 4, 5</div>
+                            </div>
+                        </div>
+                        
+                        <div class="points-tree">
+                            <div class="points-step" data-step="100"><span>100 БАЛЛОВ</span> <i class="fa-solid fa-star"></i></div>
+                            <div class="points-step" data-step="80"><span>80 БАЛЛОВ</span></div>
+                            <div class="points-step" data-step="60"><span>60 БАЛЛОВ</span></div>
+                            <div class="points-step" data-step="40"><span>40 БАЛЛОВ</span></div>
+                            <div class="points-step active" data-step="20"><span>20 БАЛЛОВ</span> <i class="fa-solid fa-chevron-left"></i></div>
+                            <div class="points-step" data-step="10"><span>10 БАЛЛОВ</span></div>
                         </div>
                     </div>
-                    
-                    <div class="points-tree">
-                        <div class="points-step" data-step="100"><span>100 БАЛЛОВ</span> <i class="fa-solid fa-star"></i></div>
-                        <div class="points-step" data-step="80"><span>80 БАЛЛОВ</span></div>
-                        <div class="points-step" data-step="60"><span>60 БАЛЛОВ</span></div>
-                        <div class="points-step" data-step="40"><span>40 БАЛЛОВ</span></div>
-                        <div class="points-step active" data-step="20"><span>20 БАЛЛОВ</span> <i class="fa-solid fa-chevron-left"></i></div>
-                        <div class="points-step" data-step="10"><span>10 БАЛЛОВ</span></div>
-                    </div>
+                    <button class="next-question-btn" onclick="nextSlide()">Следующий вопрос</button>
                 </div>
-                <button class="next-question-btn" onclick="nextSlide()">Следующий вопрос</button>
             </div>
-        </div>
 
-        <!-- ==========================================
-             СЛАЙД 5: Вопрос 3 — Математика (40 баллов)
-             ========================================== -->
-        <div class="slide-container" id="slide5" data-slide-type="question" data-question-index="3">
-            <h2 class="slide-title">Математика — Уровень 3 (40 баллов)</h2>
-            <div class="content-area">
-                <div class="game-layout">
-                    <div class="main-game-board">
-                        <div class="question-box">Найдите корень уравнения: 
-<div style="display: inline-block; vertical-align: middle; text-align: center; font-size: 1.2em;">
-  <span style="font-size: 2em; vertical-align: middle; line-height: 0;">(</span>
-  <div style="display: inline-block; vertical-align: middle;">
-    <div style="border-bottom: 2px solid white; padding: 0 5px;">1</div>
-    <div style="padding: 0 5px;">4</div>
-  </div>
-  <span style="font-size: 2em; vertical-align: middle; line-height: 0;">)</span>
-</div>
-<sup style="font-size: 0.9em; vertical-align: super; margin-left: -5px;">1 - 3x</sup> 
-= 2<sup style="font-size: 0.9em; vertical-align: super;">x + 2</sup></div>
-                        <div class="answers-grid">
-                            <div class="answer-option" data-correct="false" data-opt="A" onclick="checkAnswer(this)"><span>А:</span> 0,5</div>
-                            <div class="answer-option" data-correct="false" data-opt="B" onclick="checkAnswer(this)"><span>Б:</span> 1,2</div>
-                            <div class="answer-option" data-correct="true" data-opt="C" onclick="checkAnswer(this)"><span>В:</span> 0,8</div>
-                            <div class="answer-option" data-correct="false" data-opt="D" onclick="checkAnswer(this)"><span>Г:</span> -0,4</div>
+            <div class="slide-container" id="slide5" data-slide-type="question" data-question-index="3">
+                <h2 class="slide-title">Математика — Уровень 3 (40 баллов)</h2>
+                <div class="content-area">
+                    <div class="game-layout">
+                        <div class="main-game-board">
+                            <div class="question-box">
+                                <span>Найдите корень уравнения:</span>
+                                <div class="math-expr">
+                                    <span class="math-parentheses">(</span>
+                                    <div class="math-fraction">
+                                        <div class="math-num">1</div>
+                                        <div class="math-den">4</div>
+                                    </div>
+                                    <span class="math-parentheses">)</span>
+                                    <span class="math-supscript">1 - 3x</span>
+                                    <span>= 2</span>
+                                    <span class="math-supscript" style="margin-left: 0;">x + 2</span>
+                                </div>
+                            </div>
+                            <div class="answers-grid">
+                                <div class="answer-option" data-correct="false" data-opt="A" onclick="checkAnswer(this)"><span>А:</span> 0,5</div>
+                                <div class="answer-option" data-correct="false" data-opt="B" onclick="checkAnswer(this)"><span>Б:</span> 1,2</div>
+                                <div class="answer-option" data-correct="true" data-opt="C" onclick="checkAnswer(this)"><span>В:</span> 0,8</div>
+                                <div class="answer-option" data-correct="false" data-opt="D" onclick="checkAnswer(this)"><span>Г:</span> -0,4</div>
+                            </div>
+                        </div>
+                        
+                        <div class="points-tree">
+                            <div class="points-step" data-step="100"><span>100 БАЛЛОВ</span> <i class="fa-solid fa-star"></i></div>
+                            <div class="points-step" data-step="80"><span>80 БАЛЛОВ</span></div>
+                            <div class="points-step" data-step="60"><span>60 БАЛЛОВ</span></div>
+                            <div class="points-step active" data-step="40"><span>40 БАЛЛОВ</span> <i class="fa-solid fa-chevron-left"></i></div>
+                            <div class="points-step" data-step="20"><span>20 БАЛЛОВ</span></div>
+                            <div class="points-step" data-step="10"><span>10 БАЛЛОВ</span></div>
                         </div>
                     </div>
-                    
-                    <div class="points-tree">
-                        <div class="points-step" data-step="100"><span>100 БАЛЛОВ</span> <i class="fa-solid fa-star"></i></div>
-                        <div class="points-step" data-step="80"><span>80 БАЛЛОВ</span></div>
-                        <div class="points-step" data-step="60"><span>60 БАЛЛОВ</span></div>
-                        <div class="points-step active" data-step="40"><span>40 БАЛЛОВ</span> <i class="fa-solid fa-chevron-left"></i></div>
-                        <div class="points-step" data-step="20"><span>20 БАЛЛОВ</span></div>
-                        <div class="points-step" data-step="10"><span>10 БАЛЛОВ</span></div>
-                    </div>
+                    <button class="next-question-btn" onclick="nextSlide()">Следующий вопрос</button>
                 </div>
-                <button class="next-question-btn" onclick="nextSlide()">Следующий вопрос</button>
             </div>
-        </div>
 
-        <!-- ==========================================
-             СЛАЙД 6: Вопрос 4 — Математика (60 баллов)
-             ========================================== -->
-        <div class="slide-container" id="slide6" data-slide-type="question" data-question-index="4">
-            <h2 class="slide-title">Математика — Уровень 4 (60 баллов)</h2>
-            <div class="content-area">
-                <div class="game-layout">
-                    <div class="main-game-board">
-                        <div class="question-box" style="font-size:15px; line-height:1.35;">В фирме такси в наличии 25 легковых автомобилей: 11 чёрного цвета с жёлтыми надписями на бортах, остальные — жёлтого цвета с чёрными надписями. 
+            <div class="slide-container" id="slide6" data-slide-type="question" data-question-index="4">
+                <h2 class="slide-title">Математика — Уровень 4 (60 баллов)</h2>
+                <div class="content-area">
+                    <div class="game-layout">
+                        <div class="main-game-board">
+                            <div class="question-box" style="font-size:15px; line-height:1.35;">В фирме такси в наличии 25 легковых автомобилей: 11 чёрного цвета с жёлтыми надписями на бортах, остальные — жёлтого цвета с чёрными надписями. 
 
 Найдите вероятность того, что на случайный вызов приедет машина жёлтого цвета с чёрными надписями.</div>
-                        <div class="answers-grid">
-                            <div class="answer-option" data-correct="false" data-opt="A" onclick="checkAnswer(this)"><span>А:</span> 0,44</div>
-                            <div class="answer-option" data-correct="true" data-opt="B" onclick="checkAnswer(this)"><span>Б:</span> 0,56</div>
-                            <div class="answer-option" data-correct="false" data-opt="C" onclick="checkAnswer(this)"><span>В:</span> 0,11</div>
-                            <div class="answer-option" data-correct="false" data-opt="D" onclick="checkAnswer(this)"><span>Г:</span> 0,25</div>
+                            <div class="answers-grid">
+                                <div class="answer-option" data-correct="false" data-opt="A" onclick="checkAnswer(this)"><span>А:</span> 0,44</div>
+                                <div class="answer-option" data-correct="true" data-opt="B" onclick="checkAnswer(this)"><span>Б:</span> 0,56</div>
+                                <div class="answer-option" data-correct="false" data-opt="C" onclick="checkAnswer(this)"><span>В:</span> 0,11</div>
+                                <div class="answer-option" data-correct="false" data-opt="D" onclick="checkAnswer(this)"><span>Г:</span> 0,25</div>
+                            </div>
+                        </div>
+                        
+                        <div class="points-tree">
+                            <div class="points-step" data-step="100"><span>100 БАЛЛОВ</span> <i class="fa-solid fa-star"></i></div>
+                            <div class="points-step" data-step="80"><span>80 БАЛЛОВ</span></div>
+                            <div class="points-step active" data-step="60"><span>60 БАЛЛОВ</span> <i class="fa-solid fa-chevron-left"></i></div>
+                            <div class="points-step" data-step="40"><span>40 БАЛЛОВ</span></div>
+                            <div class="points-step" data-step="20"><span>20 БАЛЛОВ</span></div>
+                            <div class="points-step" data-step="10"><span>10 БАЛЛОВ</span></div>
                         </div>
                     </div>
-                    
-                    <div class="points-tree">
-                        <div class="points-step" data-step="100"><span>100 БАЛЛОВ</span> <i class="fa-solid fa-star"></i></div>
-                        <div class="points-step" data-step="80"><span>80 БАЛЛОВ</span></div>
-                        <div class="points-step active" data-step="60"><span>60 БАЛЛОВ</span> <i class="fa-solid fa-chevron-left"></i></div>
-                        <div class="points-step" data-step="40"><span>40 БАЛЛОВ</span></div>
-                        <div class="points-step" data-step="20"><span>20 БАЛЛОВ</span></div>
-                        <div class="points-step" data-step="10"><span>10 БАЛЛОВ</span></div>
-                    </div>
+                    <button class="next-question-btn" onclick="nextSlide()">Следующий вопрос</button>
                 </div>
-                <button class="next-question-btn" onclick="nextSlide()">Следующий вопрос</button>
             </div>
-        </div>
 
-        <!-- ==========================================
-             СЛАЙД 7: Вопрос 5 — Русский язык (80 баллов)
-             ========================================== -->
-        <div class="slide-container" id="slide7" data-slide-type="question" data-question-index="5">
-            <h2 class="slide-title">Русский Язык — Уровень 5 (80 баллов)</h2>
-            <div class="content-area">
-                <div class="game-layout">
-                    <div class="main-game-board">
-                        <div class="question-box" style="font-size:14px; line-height:1.25;">Укажите варианты ответов, в которых во всех словах одного ряда пропущена одна и та же буква. Запишите номера ответов.
+            <div class="slide-container" id="slide7" data-slide-type="question" data-question-index="5">
+                <h2 class="slide-title">Русский Язык — Уровень 5 (80 баллов)</h2>
+                <div class="content-area">
+                    <div class="game-layout">
+                        <div class="main-game-board">
+                            <div class="question-box" style="font-size:14px; line-height:1.25;">Укажите варианты ответов, в которых во всех словах одного ряда пропущена одна и та же буква. Запишите номера ответов.
 
 1) (камень) пр..ткновения, пр..держать (товар), пр..смотрел (за ребёнком)
 2) пан..американский, транс..атлантический, пред..юбилейный
 3) пр..язык, пр..дедушка, пр..родина
 4) (не видно ни) ..ги, ..дание, бли..сидящий
 5) за..нтересованный, меж..нститутский, по..грать</div>
-                        <div class="answers-grid">
-                            <div class="answer-option" data-correct="false" data-opt="A" onclick="checkAnswer(this)"><span>А:</span> 1, 3, 5</div>
-                            <div class="answer-option" data-correct="true" data-opt="B" onclick="checkAnswer(this)"><span>Б:</span> 3, 4, 5</div>
-                            <div class="answer-option" data-correct="false" data-opt="C" onclick="checkAnswer(this)"><span>В:</span> 2, 4, 5</div>
-                            <div class="answer-option" data-correct="false" data-opt="D" onclick="checkAnswer(this)"><span>Г:</span> 1, 2, 4</div>
+                            <div class="answers-grid">
+                                <div class="answer-option" data-correct="false" data-opt="A" onclick="checkAnswer(this)"><span>А:</span> 1, 3, 5</div>
+                                <div class="answer-option" data-correct="true" data-opt="B" onclick="checkAnswer(this)"><span>Б:</span> 3, 4, 5</div>
+                                <div class="answer-option" data-correct="false" data-opt="C" onclick="checkAnswer(this)"><span>В:</span> 2, 4, 5</div>
+                                <div class="answer-option" data-correct="false" data-opt="D" onclick="checkAnswer(this)"><span>Г:</span> 1, 2, 4</div>
+                            </div>
+                        </div>
+                        
+                        <div class="points-tree">
+                            <div class="points-step" data-step="100"><span>100 БАЛЛОВ</span> <i class="fa-solid fa-star"></i></div>
+                            <div class="points-step active" data-step="80"><span>80 БАЛЛОВ</span> <i class="fa-solid fa-chevron-left"></i></div>
+                            <div class="points-step" data-step="60"><span>60 БАЛЛОВ</span></div>
+                            <div class="points-step" data-step="40"><span>40 БАЛЛОВ</span></div>
+                            <div class="points-step" data-step="20"><span>20 БАЛЛОВ</span></div>
+                            <div class="points-step" data-step="10"><span>10 БАЛЛОВ</span></div>
                         </div>
                     </div>
-                    
-                    <div class="points-tree">
-                        <div class="points-step" data-step="100"><span>100 БАЛЛОВ</span> <i class="fa-solid fa-star"></i></div>
-                        <div class="points-step active" data-step="80"><span>80 БАЛЛОВ</span> <i class="fa-solid fa-chevron-left"></i></div>
-                        <div class="points-step" data-step="60"><span>60 БАЛЛОВ</span></div>
-                        <div class="points-step" data-step="40"><span>40 БАЛЛОВ</span></div>
-                        <div class="points-step" data-step="20"><span>20 БАЛЛОВ</span></div>
-                        <div class="points-step" data-step="10"><span>10 БАЛЛОВ</span></div>
-                    </div>
+                    <button class="next-question-btn" onclick="nextSlide()">Следующий вопрос</button>
                 </div>
-                <button class="next-question-btn" onclick="nextSlide()">Следующий вопрос</button>
             </div>
-        </div>
 
-        <!-- ==========================================
-             СЛАЙД 8: Вопрос 6 — Русский язык (100 баллов!)
-             ========================================== -->
-        <div class="slide-container" id="slide8" data-slide-type="question" data-question-index="6">
-            <h2 class="slide-title">Русский Язык — ФИНАЛ! (100 БАЛЛОВ!)</h2>
-            <div class="content-area">
-                <div class="game-layout">
-                    <div class="main-game-board">
-                        <div class="question-box" style="font-size:14px; line-height:1.25; border-color: #ffd700; background: linear-gradient(90deg, #1b1603 0%, #070817 50%, #1b1603 100%);">Укажите варианты ответов, в которых в обоих словах одного ряда пропущена одна и та же буква. Запишите номера ответов.
+            <div class="slide-container" id="slide8" data-slide-type="question" data-question-index="6">
+                <h2 class="slide-title">Русский Язык — ФИНАЛ! (100 БАЛЛОВ!)</h2>
+                <div class="content-area">
+                    <div class="game-layout">
+                        <div class="main-game-board">
+                            <div class="question-box" style="font-size:14px; line-height:1.25; border-color: #ffd700; background: linear-gradient(90deg, #1b1603 0%, #070817 50%, #1b1603 100%);">Укажите варианты ответов, в которых в обоих словах одного ряда пропущена одна и та же буква. Запишите номера ответов.
 
 1) (родители) тревож..тся, (автомобили) движ..тся
 2) выдел..шь (цветом), просмотр..шь (фильм)
 3) постро..вшие (дом), колебл..шься
-4) зави́с..вший (от нас), необита..мый (остров)
+4) зави́с..вший (от нас), neoбита..мый (остров)
 5) щур..щийся (от солнца), те́рп..щий (бедствие)</div>
-                        <div class="answers-grid">
-                            <div class="answer-option" style="border-color: #ffd700;" data-correct="true" data-opt="A" onclick="checkAnswer(this)"><span>А:</span> 2, 4, 5</div>
-                            <div class="answer-option" data-correct="false" data-opt="B" onclick="checkAnswer(this)"><span>Б:</span> 1, 3, 5</div>
-                            <div class="answer-option" data-correct="false" data-opt="C" onclick="checkAnswer(this)"><span>В:</span> 1, 2, 4</div>
-                            <div class="answer-option" data-correct="false" data-opt="D" onclick="checkAnswer(this)"><span>Г:</span> 3, 4, 5</div>
+                            <div class="answers-grid">
+                                <div class="answer-option" style="border-color: #ffd700;" data-correct="true" data-opt="A" onclick="checkAnswer(this)"><span>А:</span> 2, 4, 5</div>
+                                <div class="answer-option" data-correct="false" data-opt="B" onclick="checkAnswer(this)"><span>Б:</span> 1, 3, 5</div>
+                                <div class="answer-option" data-correct="false" data-opt="C" onclick="checkAnswer(this)"><span>В:</span> 1, 2, 4</div>
+                                <div class="answer-option" data-correct="false" data-opt="D" onclick="checkAnswer(this)"><span>Г:</span> 3, 4, 5</div>
+                            </div>
+                        </div>
+                        
+                        <div class="points-tree">
+                            <div class="points-step active milestone" data-step="100"><span>100 БАЛЛОВ</span> <i class="fa-solid fa-chevron-left"></i></div>
+                            <div class="points-step" data-step="80"><span>80 БАЛЛОВ</span></div>
+                            <div class="points-step" data-step="60"><span>60 БАЛЛОВ</span></div>
+                            <div class="points-step" data-step="40"><span>40 БАЛЛОВ</span></div>
+                            <div class="points-step" data-step="20"><span>20 БАЛЛОВ</span></div>
+                            <div class="points-step" data-step="10"><span>10 БАЛЛОВ</span></div>
                         </div>
                     </div>
-                    
-                    <div class="points-tree">
-                        <div class="points-step active milestone" data-step="100"><span>100 БАЛЛОВ</span> <i class="fa-solid fa-chevron-left"></i></div>
-                        <div class="points-step" data-step="80"><span>80 БАЛЛОВ</span></div>
-                        <div class="points-step" data-step="60"><span>60 БАЛЛОВ</span></div>
-                        <div class="points-step" data-step="40"><span>40 БАЛЛОВ</span></div>
-                        <div class="points-step" data-step="20"><span>20 БАЛЛОВ</span></div>
-                        <div class="points-step" data-step="10"><span>10 БАЛЛОВ</span></div>
-                    </div>
+                    <button class="next-question-btn" onclick="nextSlide()">Перейти к награждению</button>
                 </div>
-                <button class="next-question-btn" onclick="nextSlide()">Перейти к награждению</button>
             </div>
-        </div>
 
-        <!-- ==========================================
-             СЛАЙД 9: Победа! 
-             ========================================== -->
-        <div class="slide-container" id="slide9" style="background-image: linear-gradient(rgba(12, 13, 30, 0.9), rgba(12, 13, 30, 0.9)), url('https://mf.b37mrtl.ru/rbthmedia/images/2018.06/original/5b14f9c585600a5e1b40de10.jpg'); background-size: cover; background-position: center;">
-            <div class="content-area">
-                <div style="font-size: 70px; color: #ffd700; margin-bottom: 15px; animation: bounceIn 1s infinite alternate;"><i class="fa-solid fa-trophy"></i></div>
-                <h1 style="font-family: 'Russo One', sans-serif; color: #ffd700; text-align: center;">У НАС ЕСТЬ СТОБАЛЛЬНИК!</h1>
-                <p style="font-size: 20px; text-align: center; max-width: 800px; color: #ffffff; margin-top: 15px; font-weight: 500;">
-                    Вы с честью прошли все испытания школьной программы!
-                </p>
-                <button class="next-question-btn" style="display: block; margin-top: 20px;" onclick="nextSlide()">Завершить игру</button>
+            <div class="slide-container" id="slide9" style="background-image: linear-gradient(rgba(12, 13, 30, 0.9), rgba(12, 13, 30, 0.9)), url('https://mf.b37mrtl.ru/rbthmedia/images/2018.06/original/5b14f9c585600a5e1b40de10.jpg'); background-size: cover; background-position: center;">
+                <div class="content-area">
+                    <div style="font-size: 70px; color: #ffd700; margin-bottom: 15px; animation: bounceIn 1s infinite alternate;"><i class="fa-solid fa-trophy"></i></div>
+                    <h1 style="font-family: 'Russo One', sans-serif; color: #ffd700; text-align: center;">У НАС ЕСТЬ СТОБАЛЛЬНИК!</h1>
+                    <p style="font-size: 20px; text-align: center; max-width: 800px; color: #ffffff; margin-top: 15px; font-weight: 500;">
+                        Вы с честью прошли все испытания школьной программы!
+                    </p>
+                    <button class="next-question-btn" style="display: block; margin-top: 20px;" onclick="nextSlide()">Завершить игру</button>
+                </div>
             </div>
-        </div>
 
-        <!-- ==========================================
-             СЛАЙД 10: Советы Ведущему 
-             ========================================== -->
+            <div class="admin-controls">
+                <button class="admin-btn" onclick="prevSlide()"><i class="fa-solid fa-arrow-left"></i> Пред. слайд</button>
+                <button class="admin-btn" onclick="nextSlide()">След. слайд <i class="fa-solid fa-arrow-right"></i></button>
+            </div>
+
+        </div>
+    </div>
 
     <script>
         // Глобальное состояние игры
         let currentSlideIndex = 1;
-        const totalSlides = 10;
+        const totalSlides = 9; // Скорректировано до 9 реальных слайдов
         
-        // Глобальный статус подсказок (действует на всю игру)
+        // Статус подсказок (на всю игру)
         const lifelinesState = {
             fiftyFiftyUsed: false,
             phoneFriendUsed: false,
             audienceUsed: false
         };
 
+        // Инициализация аудиоконтекста
         const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
 
         function playSound(type) {
@@ -812,21 +775,19 @@
                 gain.connect(audioCtx.destination);
 
                 if (type === 'correct') {
-                    // Мажорное восходящее созвучие (Арпеджио)
                     const now = audioCtx.currentTime;
                     osc.type = 'triangle';
                     gain.gain.setValueAtTime(0.15, now);
                     gain.gain.exponentialRampToValueAtTime(0.01, now + 0.8);
                     
-                    osc.frequency.setValueAtTime(523.25, now); // C5
+                    osc.frequency.setValueAtTime(523.25, now);     // C5
                     osc.frequency.setValueAtTime(659.25, now + 0.15); // E5
-                    osc.frequency.setValueAtTime(783.99, now + 0.3); // G5
-                    osc.frequency.setValueAtTime(1046.50, now + 0.45); // C6
+                    osc.frequency.setValueAtTime(783.99, now + 0.3);  // G5
+                    osc.frequency.setValueAtTime(1046.50, now + 0.45);// C6
                     
                     osc.start(now);
                     osc.stop(now + 0.8);
                 } else if (type === 'incorrect') {
-                    // Драматический нисходящий звук
                     const now = audioCtx.currentTime;
                     osc.type = 'sawtooth';
                     gain.gain.setValueAtTime(0.15, now);
@@ -838,7 +799,6 @@
                     osc.start(now);
                     osc.stop(now + 0.6);
                 } else if (type === 'lifeline') {
-                    // Быстрый космический свист
                     const now = audioCtx.currentTime;
                     osc.type = 'sine';
                     gain.gain.setValueAtTime(0.1, now);
@@ -862,7 +822,7 @@
             document.querySelectorAll('.slide-container').forEach(slide => {
                 slide.classList.remove('active');
             });
-
+            
             // Показываем нужный слайд
             const activeSlide = document.getElementById('slide' + index);
             if (activeSlide) {
@@ -870,13 +830,12 @@
                 currentSlideIndex = index;
             }
 
-            // На слайде заставки (1), правил (2), победы (9) и памятки (10) скрываем панель подсказок
+            // Скрываем/показываем блок подсказок в зависимости от слайда
             const lifelinesPanel = document.querySelector('.lifelines');
-            if (index === 1 || index === 2 || index === 9 || index === 10) {
+            if (index === 1 || index === 2 || index === 9) {
                 lifelinesPanel.style.display = 'none';
             } else {
                 lifelinesPanel.style.display = 'flex';
-                // Обновляем шкалу баллов на текущем слайде вопросов, чтобы она соответствовала текущей цене вопроса
                 syncActiveScoreStepOnLoad(activeSlide);
             }
         }
@@ -894,36 +853,30 @@
             const isCorrect = selectedOption.getAttribute('data-correct') === 'true';
 
             if (isCorrect) {
-                // Если ответ верный
                 playSound('correct');
                 selectedOption.classList.add('correct');
                 
-                // Находим все неверные ответы на этом слайде и делаем их некликабельными
+                // Блокируем остальные варианты
                 const allOptions = currentSlide.querySelectorAll('.answer-option');
                 allOptions.forEach(opt => {
                     if (opt !== selectedOption) {
                         opt.style.pointerEvents = 'none';
                     }
                 });
-
-                // Увеличиваем шкалу баллов (делаем её более яркой/поднимаем active)
+                
                 advancePointsTree(currentSlide);
-
-                // Плавно показываем кнопку "Следующий вопрос"
+                
                 const nextBtn = currentSlide.querySelector('.next-question-btn');
                 if (nextBtn) {
                     nextBtn.style.display = 'block';
                 }
             } else {
-                // Если ответ неверный — просто подчеркиваем/зачеркиваем его красным
                 playSound('incorrect');
                 selectedOption.classList.add('incorrect');
-                // Снимаем возможность кликнуть на этот же неправильный повторно
-                selectedOption.style.pointerEvents = 'none';
+                selectedOption.style.pointerEvents = 'none'; // Нельзя кликнуть повторно на этот же неверный
             }
         }
 
-        // Синхронизация шкалы баллов при входе на слайд вопроса
         function syncActiveScoreStepOnLoad(slide) {
             if (!slide) return;
             const qIndex = parseInt(slide.getAttribute('data-question-index'));
@@ -937,33 +890,34 @@
                 const stepVal = parseInt(step.getAttribute('data-step'));
                 if (stepVal === currentStepValue) {
                     step.classList.add('active');
+                    if (!step.innerHTML.includes('chevron-left')) {
+                        step.innerHTML += ' <i class="fa-solid fa-chevron-left"></i>';
+                    }
                 } else {
                     step.classList.remove('active');
+                    const chevron = step.querySelector('.fa-chevron-left');
+                    if (chevron) chevron.remove();
                 }
             });
         }
 
-        // Визуальное продвижение шкалы баллов на один пункт вверх при правильном ответе
         function advancePointsTree(slide) {
             const qIndex = parseInt(slide.getAttribute('data-question-index'));
             if (!qIndex) return;
 
             const steps = [10, 20, 40, 60, 80, 100];
-            // Текущее значение шага, которое должно стать «пройденным», а следующее — стать активным
-            const nextStepValue = steps[qIndex]; // индекс на 1 больше текущего индекса вопроса
+            const nextStepValue = steps[qIndex];
 
             const pointsSteps = slide.querySelectorAll('.points-step');
             pointsSteps.forEach(step => {
                 const stepVal = parseInt(step.getAttribute('data-step'));
                 if (stepVal === nextStepValue) {
                     step.classList.add('active');
-                    // Добавляем красивую иконку стрелочки, указывающую на новый рубеж
                     if (!step.innerHTML.includes('chevron-left')) {
                         step.innerHTML += ' <i class="fa-solid fa-chevron-left"></i>';
                     }
                 } else {
                     step.classList.remove('active');
-                    // Удаляем стрелочку с прошлых шагов
                     const chevron = step.querySelector('.fa-chevron-left');
                     if (chevron) chevron.remove();
                 }
@@ -972,33 +926,27 @@
 
         function useFiftyFifty() {
             if (lifelinesState.fiftyFiftyUsed) return;
-            
             const activeSlide = document.querySelector('.slide-container.active');
-            // Проверяем, что сейчас активен именно слайд с вопросом
             if (!activeSlide || activeSlide.getAttribute('data-slide-type') !== 'question') return;
-
+            
             playSound('lifeline');
             lifelinesState.fiftyFiftyUsed = true;
             
-            // Находим все кнопки 50:50 на странице и зачеркиваем их навсегда
             const btn5050 = document.getElementById('lifeline-5050');
             if (btn5050) btn5050.classList.add('used');
 
-            // Логика удаления двух неверных ответов на текущем слайде
             const options = Array.from(activeSlide.querySelectorAll('.answer-option'));
             const incorrectOptions = options.filter(opt => opt.getAttribute('data-correct') === 'false');
 
-            // Перемешиваем массив неправильных ответов и скрываем первые два
             const shuffledIncorrect = incorrectOptions.sort(() => 0.5 - Math.random());
             shuffledIncorrect.slice(0, 2).forEach(opt => {
                 opt.classList.add('hidden-option');
-                opt.style.pointerEvents = 'none'; // Запрещаем на них кликать
+                opt.style.pointerEvents = 'none';
             });
         }
 
         function usePhoneFriend() {
             if (lifelinesState.phoneFriendUsed) return;
-            
             const activeSlide = document.querySelector('.slide-container.active');
             if (!activeSlide || activeSlide.getAttribute('data-slide-type') !== 'question') return;
 
@@ -1011,7 +959,6 @@
 
         function useAudience() {
             if (lifelinesState.audienceUsed) return;
-            
             const activeSlide = document.querySelector('.slide-container.active');
             if (!activeSlide || activeSlide.getAttribute('data-slide-type') !== 'question') return;
 
@@ -1022,13 +969,36 @@
             if (btnAudience) btnAudience.classList.add('used');
         }
 
+        // Переключение слайдов стрелочками клавиатуры
         document.addEventListener('keydown', (e) => {
-            if (e.key === 'ArrowRight' || e.key === 'Space') {
+            if (e.key === 'ArrowRight') {
                 nextSlide();
             } else if (e.key === 'ArrowLeft') {
                 prevSlide();
             }
         });
+
+        // Функция автоматического адаптивного масштабирования под размер окна браузера
+        function scalePresentation() {
+            const wrapper = document.getElementById('presentation');
+            const targetWidth = 1280;
+            const targetHeight = 720;
+            
+            const windowWidth = window.innerWidth;
+            const windowHeight = window.innerHeight;
+            
+            // Находим минимальный коэффициент масштабирования
+            const scaleX = windowWidth / targetWidth;
+            const scaleY = windowHeight / targetHeight;
+            const scale = Math.min(scaleX, scaleY);
+            
+            // Применяем CSS Transform к контейнеру игры
+            wrapper.style.transform = `scale(${scale})`;
+        }
+
+        // Запуск масштабирования при загрузке и изменении размеров окна
+        window.addEventListener('resize', scalePresentation);
+        window.addEventListener('DOMContentLoaded', scalePresentation);
     </script>
 </body>
 </html>
