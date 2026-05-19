@@ -3,284 +3,1121 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Для тебя ✨</title>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;500;600&display=swap" rel="stylesheet">
+    <title>Кто хочет стать стобалльником? — Последний Звонок</title>
+    <!-- Подключаем шрифты: Russo One для игрового стиля и Montserrat для текстов -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Russo+One&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
     <style>
-        body {
+        * {
+            box-sizing: border-box;
+        }
+
+        p {
             margin: 0;
-            padding: 0;
+            margin-bottom: 12px;
+        }
+
+        body {
+            background-color: #05060f;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            margin: 0;
+            min-height: 100vh;
             font-family: 'Montserrat', sans-serif;
-            background: linear-gradient(135deg, #fceae8 0%, #ebf4f5 100%);
-            color: #4a4a4a;
+            color: #ffffff;
+            overflow-x: hidden;
+        }
+
+        /* Контейнер презентации с фиксированными пропорциями 16:9 */
+        .presentation-wrapper {
+            width: 1280px;
+            height: 720px;
+            position: relative;
+            background: radial-gradient(circle at center, #0f133a 0%, #03040d 100%);
+            border: 4px solid #1e295d;
+            border-radius: 16px;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.8), 0 0 40px rgba(0, 240, 255, 0.1);
+            overflow: hidden;
+        }
+
+        .slide-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: none; /* Все слайды скрыты по умолчанию */
+            flex-direction: column;
+            justify-content: space-between;
+            padding: 35px 45px;
+            z-index: 2;
+        }
+
+        .slide-container.active {
+            display: flex; /* Показываем только активный слайд */
+            animation: fadeIn 0.4s ease-out forwards;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: scale(0.98); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        /* Фоновый декор */
+        .bg-decor {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+            background: 
+                radial-gradient(circle at 5% 15%, rgba(0, 240, 255, 0.05) 0%, transparent 35%),
+                radial-gradient(circle at 95% 85%, rgba(255, 215, 0, 0.05) 0%, transparent 35%);
+        }
+
+        .slide-container h1,
+        .slide-container h2,
+        .slide-container h3 {
+            font-family: 'Russo One', sans-serif;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin: 0;
+        }
+
+        .slide-container h1 {
+            color: #ffffff;
+            font-size: 48px;
+            text-shadow: 0 0 15px rgba(255, 255, 255, 0.2);
             text-align: center;
-            min-height: 100vh;
         }
 
-        .container {
-            width: 90%;
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 20px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-        }
-
-        .hidden { display: none !important; }
-
-        button {
-            background-color: #ff8b94;
-            color: white;
-            border: none;
-            padding: 15px 30px;
-            font-size: 1.1rem;
-            font-family: 'Montserrat', sans-serif;
-            font-weight: 600;
-            border-radius: 30px;
-            cursor: pointer;
-            transition: transform 0.2s, background-color 0.2s;
-            box-shadow: 0 4px 15px rgba(255,139,148,0.3);
-            margin-top: 20px;
-        }
-        button:hover { transform: scale(1.05); background-color: #ff7681; }
-
-        #start-screen, #timer-screen {
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-        }
-
-        #memory-tape {
-            padding: 50px 0;
+        .slide-title {
+            color: #ffd700;
+            font-size: 28px;
+            font-weight: 400;
+            border-bottom: 2px solid rgba(229, 193, 88, 0.2);
+            padding-bottom: 8px;
             width: 100%;
-            animation: fadeIn 1s ease;
-        }
-
-        #memory-tape h2 {
-            margin-bottom: 50px;
-            color: #ff8b94;
-        }
-
-        .memory-item {
-            display: flex;
-            align-items: center;
-            margin-bottom: 50px;
-            width: 100%;
-            animation: fadeIn 1s ease;
-        }
-
-        .memory-item:nth-child(even) {
-            flex-direction: row-reverse;
-        }
-
-        .memory-photo {
-            flex: 1;
-            padding: 10px;
-        }
-
-        .memory-photo img {
-            width: 100%;
-            max-width: 350px;
-            height: auto;
-            border-radius: 20px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-            border: 5px solid white;
-            object-fit: cover;
-        }
-
-        .memory-text {
-            flex: 1;
-            padding: 20px;
             text-align: left;
-            background: rgba(255, 255, 255, 0.7);
-            border-radius: 15px;
-            margin: 0 20px;
-            font-size: 1.1rem;
+            text-shadow: 0 0 10px rgba(255, 215, 0, 0.2);
+        }
+
+        .slide-container p,
+        .slide-container li {
+            color: #cbd5e1;
+            font-size: 15px;
             line-height: 1.5;
         }
 
-        .memory-item:nth-child(even) .memory-text {
-            text-align: right;
+        .slide-container strong {
+            color: #ffd700;
         }
 
-        .final-message {
-            background: white;
-            padding: 30px;
+        .content-area {
+            align-items: center;
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+            justify-content: center;
+            width: 100%;
+            padding: 10px 0;
+        }
+
+        .lifelines {
+            display: flex;
+            gap: 15px;
+            position: absolute;
+            top: 25px;
+            right: 45px;
+            z-index: 10;
+        }
+
+        .lifeline-btn {
+            align-items: center;
+            background: linear-gradient(185deg, #11143a 0%, #070817 100%);
+            border: 2px solid #00f0ff;
+            border-radius: 50%;
+            box-shadow: 0 0 12px rgba(0, 240, 255, 0.2);
+            color: #00f0ff;
+            display: flex;
+            font-family: 'Russo One', sans-serif;
+            font-size: 14px;
+            height: 48px;
+            justify-content: center;
+            width: 48px;
+            cursor: pointer;
+            transition: all 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            user-select: none;
+            position: relative;
+        }
+
+        .lifeline-btn:hover:not(.used) {
+            box-shadow: 0 0 18px rgba(0, 240, 255, 0.6);
+            transform: scale(1.1);
+            color: #ffffff;
+            border-color: #ffffff;
+        }
+
+        .lifeline-btn.used {
+            border-color: #ef4444 !important;
+            color: #ef4444 !important;
+            opacity: 0.35;
+            box-shadow: none !important;
+            cursor: not-allowed;
+            transform: none !important;
+        }
+
+        .lifeline-btn.used::after,
+        .lifeline-btn.used::before {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 3px;
+            background-color: #ef4444;
+            top: 50%;
+            left: 0;
+            margin-top: -1.5px;
+        }
+        .lifeline-btn.used::after {
+            transform: rotate(45deg);
+        }
+        .lifeline-btn.used::before {
+            transform: rotate(-45deg);
+        }
+
+        .game-layout {
+            display: grid;
+            grid-template-columns: 1fr 240px;
+            gap: 30px;
+            width: 100%;
+            height: 320px;
+        }
+
+        .main-game-board {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            height: 100%;
+        }
+
+        /* Блок вопроса */
+        .question-box {
+            background: linear-gradient(90deg, #10143d 0%, #080a1c 50%, #10143d 100%);
+            border: 2px solid #ffd700;
             border-radius: 20px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
-            margin: 40px 0;
-            font-size: 1.2rem;
-            line-height: 1.6;
-            color: #333;
-        }
-
-        #timer-display {
-            font-size: 2.5rem;
+            box-shadow: 0 0 15px rgba(255, 215, 0, 0.15);
+            color: #ffffff;
+            font-size: 17px;
             font-weight: 600;
-            margin: 20px 0;
-            color: #ff8b94;
+            padding: 15px 25px;
+            text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100px;
+            white-space: pre-line;
+            line-height: 1.4;
         }
 
-        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        /* Сетка ответов 2x2 */
+        .answers-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
 
-        @media (max-width: 600px) {
-            .memory-item, .memory-item:nth-child(even) {
-                flex-direction: column;
-                margin-bottom: 40px;
-            }
-            .memory-text {
-                text-align: center !important;
-                margin: 15px 0 0 0;
-            }
-            .memory-photo img {
-                max-width: 280px;
-            }
+        /* Кнопка ответа */
+        .answer-option {
+            background: linear-gradient(90deg, #0e1236 0%, #060817 100%);
+            border: 2px solid #1e295d;
+            border-radius: 15px;
+            color: #ffffff;
+            cursor: pointer;
+            font-size: 15px;
+            padding: 14px 20px;
+            text-align: left;
+            transition: all 0.2s ease;
+            user-select: none;
+            display: flex;
+            align-items: center;
+            opacity: 1;
+        }
+
+        .answer-option.hidden-option {
+            opacity: 0.15;
+            pointer-events: none;
+        }
+
+        .answer-option:hover:not(.correct):not(.incorrect) {
+            border-color: #00f0ff;
+            box-shadow: 0 0 12px rgba(0, 240, 255, 0.3);
+            transform: translateY(-1px);
+        }
+
+        /* Золотой префикс варианта (А:, Б:) */
+        .answer-option span {
+            color: #ffd700;
+            font-family: 'Russo One', sans-serif;
+            margin-right: 10px;
+            font-size: 16px;
+        }
+
+        /* Правильный ответ (зеленый) */
+        .answer-option.correct {
+            background: linear-gradient(90deg, #0c3321 0%, #04120b 100%) !important;
+            border-color: #22c55e !important;
+            box-shadow: 0 0 20px rgba(34, 197, 94, 0.6) !important;
+            animation: pulseCorrect 0.5s infinite alternate;
+        }
+
+        @keyframes pulseCorrect {
+            from { box-shadow: 0 0 10px rgba(34, 197, 94, 0.4); }
+            to { box-shadow: 0 0 22px rgba(34, 197, 94, 0.8); }
+        }
+
+        /* Неправильный ответ (просто зачеркнуто/подчеркнуто красным) */
+        .answer-option.incorrect {
+            background: linear-gradient(90deg, #240c0c 0%, #0c0404 100%) !important;
+            border-color: #ef4444 !important;
+            box-shadow: 0 0 15px rgba(239, 68, 68, 0.4) !important;
+            text-decoration: line-through;
+        }
+
+        .points-tree {
+            background: rgba(8, 10, 31, 0.9);
+            border: 2px solid #1e295d;
+            border-radius: 16px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            padding: 12px 15px;
+            height: 100%;
+        }
+
+        .points-step {
+            align-items: center;
+            color: #475569;
+            display: flex;
+            font-family: 'Russo One', sans-serif;
+            font-size: 13px;
+            justify-content: space-between;
+            padding: 4px 8px;
+            border-radius: 6px;
+            transition: all 0.3s ease;
+        }
+
+        .points-step.active {
+            background: linear-gradient(90deg, rgba(255, 215, 0, 0.25) 0%, rgba(255, 215, 0, 0.05) 100%);
+            border: 1px solid #ffd700;
+            color: #ffd700;
+            text-shadow: 0 0 8px rgba(255, 215, 0, 0.5);
+        }
+
+        .points-step.milestone {
+            color: #e2e8f0;
+        }
+
+        .points-step.milestone.active {
+            color: #ffd700;
+        }
+
+        .next-question-btn {
+            background: linear-gradient(135deg, #ffd700 0%, #b89600 100%);
+            border: none;
+            border-radius: 30px;
+            color: #000000;
+            font-family: 'Russo One', sans-serif;
+            font-size: 16px;
+            font-weight: bold;
+            padding: 14px 35px;
+            cursor: pointer;
+            box-shadow: 0 0 20px rgba(255, 215, 0, 0.4);
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            display: none; /* Показывается только при правильном ответе */
+            animation: bounceIn 0.5s ease;
+        }
+
+        .next-question-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 30px rgba(255, 215, 0, 0.8);
+        }
+
+        @keyframes bounceIn {
+            0% { transform: scale(0.3); opacity: 0; }
+            50% { transform: scale(1.1); }
+            70% { transform: scale(0.9); }
+            100% { transform: scale(1); opacity: 1; }
+        }
+
+        /* Панель ручного переключения в самом низу презентации (для ведущего) */
+        .admin-controls {
+            position: absolute;
+            bottom: 15px;
+            left: 45px;
+            display: flex;
+            gap: 15px;
+            z-index: 10;
+        }
+
+        .admin-btn {
+            background: rgba(30, 41, 93, 0.6);
+            border: 1px solid #1e295d;
+            color: #cbd5e1;
+            padding: 6px 12px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 11px;
+            transition: all 0.2s;
+        }
+
+        .admin-btn:hover {
+            background: rgba(0, 240, 255, 0.2);
+            border-color: #00f0ff;
+            color: #ffffff;
+        }
+
+        .presenter-cue-card {
+            background: linear-gradient(135deg, #0e1236 0%, #050614 100%);
+            border-left: 4px solid #00f0ff;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0, 240, 255, 0.05);
+            padding: 12px 20px;
+            width: 100%;
+            margin-top: 15px;
+        }
+
+        .presenter-cue-card h4 {
+            color: #00f0ff;
+            font-family: 'Russo One', sans-serif;
+            font-size: 12px;
+            margin: 0 0 5px 0;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .presenter-cue-card p {
+            color: #94a3b8;
+            font-size: 13px;
+            font-style: italic;
+            line-height: 1.4;
+            margin: 0;
+        }
+
+        /* Слайд-заставка */
+        .millionaire-logo {
+            align-items: center;
+            background: radial-gradient(circle, #202763 0%, #0a0c24 70%);
+            border: 4px double #ffd700;
+            border-radius: 50%;
+            box-shadow: 0 0 35px rgba(255, 215, 0, 0.3);
+            display: flex;
+            flex-direction: column;
+            height: 220px;
+            justify-content: center;
+            margin-bottom: 20px;
+            position: relative;
+            width: 220px;
+        }
+
+        .millionaire-logo h2 {
+            color: #ffffff;
+            font-size: 18px;
+            text-align: center;
+            line-height: 1.2;
+        }
+
+        .millionaire-logo i {
+            color: #ffd700;
+            font-size: 35px;
+            margin-top: 8px;
+        }
+
+        /* Двухколоночный слайд для правил */
+        .two-column-rules {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            width: 100%;
+        }
+
+        .rules-card {
+            background: rgba(13, 17, 47, 0.6);
+            border: 1px solid #1e295d;
+            border-radius: 12px;
+            padding: 20px;
+        }
+
+        .rules-card h3 {
+            color: #ffd700;
+            font-size: 18px;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .rules-card ul {
+            margin: 0;
+            padding-left: 20px;
+        }
+
+        .rules-card li {
+            margin-bottom: 8px;
+            font-size: 14px;
+        }
+
+        /* Изображения */
+        .image-container-right {
+            border: 2px solid #1e295d;
+            border-radius: 12px;
+            height: 250px;
+            overflow: hidden;
+            width: 100%;
+        }
+
+        .image-container-right img {
+            height: 100%;
+            object-fit: cover;
+            width: 100%;
         }
     </style>
 </head>
 <body>
 
-    <div class="container">
-        <!-- ПЕРВЫЙ ЭКРАН -->
-        <div id="start-screen">
-            <h1>У меня есть кое-что для тебя...</h1>
-            <button onclick="showMemories()">Открыть</button>
+    <!-- Главная обертка презентации -->
+    <div class="presentation-wrapper">
+        <div class="bg-decor"></div>
+
+        <!-- Глобальный блок подсказок (отрисовывается сверху) -->
+        <div class="lifelines">
+            <div class="lifeline-btn" id="lifeline-5050" onclick="useFiftyFifty()" title="Убрать 2 неверных ответа">50:50</div>
+            <div class="lifeline-btn" id="lifeline-phone" onclick="usePhoneFriend()" title="Звонок другу"><i class="fa-solid fa-phone"></i></div>
+            <div class="lifeline-btn" id="lifeline-audience" onclick="useAudience()" title="Помощь зала"><i class="fa-solid fa-users"></i></div>
         </div>
 
-        <!-- ЛЕНТА ВОСПОМИНАНИЙ -->
-        <div id="memory-tape" class="hidden">
-            <h2>Лента событий</h2>
-
-            <!-- Фото 1 -->
-            <div class="memory-item">
-                <div class="memory-photo"><img src="photo1.jpg" alt="Фото 1"></div>
-                <div class="memory-text">
-                    <p>Помнишь твой день рождения когда ты ставила пластинку ABBA на магнитофоне, я помню как ты радовалась</p>
+        <!-- ==========================================
+             СЛАЙД 1: Приветственная заставка 
+             ========================================== -->
+        <div class="slide-container active" id="slide1">
+            <div class="content-area">
+                <div class="millionaire-logo">
+                    <h2>КТО ХОЧЕТ<br>СТАТЬ<br><span style="color: #ffd700;">СТОБАЛЛЬНИКОМ?</span></h2>
+                    <i class="fa-solid fa-graduation-cap"></i>
                 </div>
+                <h1>Кто хочет стать стобалльником?</h1>
+                <p style="color: #8892b0; font-size: 18px; text-align: center; margin-top: 10px;">
+                    Интеллектуальное шоу к празднику Последнего Звонка
+                </p>
+                <button class="next-question-btn" style="display: block; margin-top: 15px;" onclick="nextSlide()">Начать игру</button>
             </div>
-
-            <!-- Фото 2 -->
-            <div class="memory-item">
-                <div class="memory-photo"><img src="photo2.jpg" alt="Фото 2"></div>
-                <div class="memory-text">
-                    <p>А ещё когда мы все вместе гуляли в апреле, ты меня ещё сфоткала классно</p>
-                </div>
+            
+            <div class="presenter-cue-card">
+                <h4>🎤 Речь ведущего (Интро):</h4>
+                <p>
+                    «Добрый день, дорогие учителя, родители, гости и, конечно же, выпускники! Прямо сейчас мы проверим, насколько вы готовы к ЕГЭ, но в формате легендарного телешоу "Кто хочет стать стобалльником"! Давайте пригласим первого смельчака!»
+                </p>
             </div>
-
-            <!-- Фото 3 -->
-            <div class="memory-item">
-                <div class="memory-photo"><img src="photo3.jpg" alt="Фото 3"></div>
-                <div class="memory-text">
-                    <p>хахахаха, а когда ты ко мне на работу пришла, мне было очень приятно</p>
-                </div>
-            </div>
-
-            <!-- Фото 4 -->
-            <div class="memory-item">
-                <div class="memory-photo"><img src="photo4.jpg" alt="Фото 4"></div>
-                <div class="memory-text">
-                    <p>А помнишь мою смешную фотку</p>
-                </div>
-            </div>
-
-            <!-- Фото 5 -->
-            <div class="memory-item">
-                <div class="memory-photo"><img src="photo5.jpg" alt="Фото 5"></div>
-                <div class="memory-text">
-                    <p>А помнишь как мы с тобой в усадьбе гуляли, столько смешного произошло, и мужик детей плавать учил, и я песню петь пытался</p>
-                </div>
-            </div>
-
-            <!-- Фото 6 -->
-            <div class="memory-item">
-                <div class="memory-photo"><img src="photo6.jpg" alt="Фото 6"></div>
-                <div class="memory-text">
-                    <p>АХХАХАХАХА стул в конце концов нашли</p>
-                </div>
-            </div>
-
-            <!-- Фото 7 -->
-            <div class="memory-item">
-                <div class="memory-photo"><img src="photo7.jpg" alt="Фото 7"></div>
-                <div class="memory-text">
-                    <p>Камыш я тебе сорвал, мы с тобой его потом расхерачили</p>
-                </div>
-            </div>
-
-            <!-- Фото 8 -->
-            <div class="memory-item">
-                <div class="memory-photo"><img src="photo8.jpg" alt="Фото 8"></div>
-                <div class="memory-text">
-                    <p>Ланчбокс в машине нашли, да и вообще классно тогда было</p>
-                </div>
-            </div>
-
-            <!-- Фото 9 -->
-            <div class="memory-item">
-                <div class="memory-photo"><img src="photo9.jpg" alt="Фото 9"></div>
-                <div class="memory-text">
-                    <p>сумочку твою анексировал</p>
-                </div>
-            </div>
-
-            <!-- Финальный текст -->
-            <div class="final-message">
-                <p>В общем не грусти давай, когда ты грустишь мне самому грустно. Хочется тебе поднять настроение, и это моя попытка это сделать. А теперь нажми на кнопку 👇</p>
-            </div>
-
-            <button onclick="showTimer()">Что дальше?</button>
         </div>
 
-        <!-- ТАЙМЕР -->
-        <div id="timer-screen" class="hidden">
-            <h3>Осталось подождать совсем чуть-чуть:</h3>
-            <div id="timer-display">Загрузка...</div>
-            <p>...и я тебя обниму! 🤗</p>
+        <!-- ==========================================
+             СЛАЙД 2: Правила игры 
+             ========================================== -->
+        <div class="slide-container" id="slide2">
+            <h2 class="slide-title">Правила игры и подсказки</h2>
+            <div class="content-area">
+                <div class="two-column-rules">
+                    <div class="rules-card">
+                        <h3><i class="fa-solid fa-scroll"></i> Формат Игры</h3>
+                        <ul>
+                            <li><strong>6 каверзных вопросов</strong> из реальной программы ЕГЭ по разным предметам.</li>
+                            <li>Восхождение по шкале баллов от 10 до заветных <strong>100 баллов</strong>.</li>
+                            <li>Каждый правильный ответ открывает путь к следующему вопросу.</li>
+                            <li>При ошибке мы не сбрасываем баллы — ведь на Последнем звонке у всех должен быть шанс отыграться!</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="rules-card">
+                        <h3><i class="fa-solid fa-circle-question"></i> Доступные подсказки</h3>
+                        <ul style="list-style-type: none; padding-left: 0;">
+                            <li style="margin-bottom: 10px;">
+                                <strong style="color: #00f0ff;">50/50:</strong> Убирает 2 случайных неверных ответа.
+                            </li>
+                            <li style="margin-bottom: 10px;">
+                                <strong style="color: #00f0ff;">Звонок другу:</strong> 30 секунд на совет с самым мудрым человеком в зале.
+                            </li>
+                            <li>
+                                <strong style="color: #00f0ff;">Помощь зала:</strong> Коллективная мудрость одноклассников или родителей.
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <button class="next-question-btn" style="display: block; margin-top: 15px;" onclick="nextSlide()">К первому вопросу</button>
+            </div>
+
+            <div class="presenter-cue-card">
+                <h4>🎤 Речь ведущего:</h4>
+                <p>
+                    «Правила предельно просты. У нашего участника есть 6 рубежей и 3 заветные подсказки. Давайте начнем этот путь! Вы готовы? Тогда — поехали!»
+                </p>
+            </div>
         </div>
+
+        <!-- ==========================================
+             СЛАЙД 3: Вопрос 1 — Русский язык (10 баллов)
+             ========================================== -->
+        <div class="slide-container" id="slide3" data-slide-type="question" data-question-index="1">
+            <h2 class="slide-title">Русский Язык — Уровень 1 (10 баллов)</h2>
+            <div class="content-area">
+                <div class="game-layout">
+                    <div class="main-game-board">
+                        <div class="question-box">Укажите вариант ответа, в котором НЕВЕРНО выделена буква, обозначающая ударный гласный звук:</div>
+                        <div class="answers-grid">
+                            <div class="answer-option" data-correct="false" data-opt="A" onclick="checkAnswer(this)"><span>А:</span> КвартАл</div>
+                            <div class="answer-option" data-correct="true" data-opt="B" onclick="checkAnswer(this)"><span>Б:</span> МозАичный</div>
+                            <div class="answer-option" data-correct="false" data-opt="C" onclick="checkAnswer(this)"><span>В:</span> МусоропровОд</div>
+                            <div class="answer-option" data-correct="false" data-opt="D" onclick="checkAnswer(this)"><span>Г:</span> ПартЕр</div>
+                        </div>
+                    </div>
+                    
+                    <!-- Боковое дерево очков -->
+                    <div class="points-tree">
+                        <div class="points-step" data-step="100"><span>100 БАЛЛОВ</span> <i class="fa-solid fa-star"></i></div>
+                        <div class="points-step" data-step="80"><span>80 БАЛЛОВ</span></div>
+                        <div class="points-step" data-step="60"><span>60 БАЛЛОВ</span></div>
+                        <div class="points-step" data-step="40"><span>40 БАЛЛОВ</span></div>
+                        <div class="points-step" data-step="20"><span>20 БАЛЛОВ</span></div>
+                        <div class="points-step active" data-step="10"><span>10 БАЛЛОВ</span> <i class="fa-solid fa-chevron-left"></i></div>
+                    </div>
+                </div>
+                <button class="next-question-btn" onclick="nextSlide()">Следующий вопрос</button>
+            </div>
+
+            <div class="presenter-cue-card">
+                <h4>🎤 Речь ведущего:</h4>
+                <p>
+                    «Первый рубеж — 10 баллов. Орфоэпический вопрос. Одно из этих слов часто произносят с ошибкой в повседневной жизни, но только не будущие стобалльники. Какой твой ответ?»
+                </p>
+            </div>
+        </div>
+
+        <!-- ==========================================
+             СЛАЙД 4: Вопрос 2 — Русский язык (20 баллов)
+             ========================================== -->
+        <div class="slide-container" id="slide4" data-slide-type="question" data-question-index="2">
+            <h2 class="slide-title">Русский Язык — Уровень 2 (20 баллов)</h2>
+            <div class="content-area">
+                <div class="game-layout">
+                    <div class="main-game-board">
+                        <div class="question-box" style="font-size:14px; line-height:1.25;">Укажите варианты ответов, в которых во всех словах одного ряда пропущена одна и та же буква. Запишите номера ответов.
+ 
+1) прил..скать, п..лисадник, экз..менатор 
+2) изв..ниться, св..ла (ребёнка по лестнице), ун..кальный 
+3) к..нонада, заг..дать, выр..внять (стены)
+4) ч..столюбие, гал..рея, оп..реться
+5) зап..рать (на замок), оф..цер, ст..лист</div>
+                        <div class="answers-grid">
+                            <div class="answer-option" data-correct="false" data-opt="A" onclick="checkAnswer(this)"><span>А:</span> 2, 3, 5</div>
+                            <div class="answer-option" data-correct="true" data-opt="B" onclick="checkAnswer(this)"><span>Б:</span> 1, 4, 5</div>
+                            <div class="answer-option" data-correct="false" data-opt="C" onclick="checkAnswer(this)"><span>В:</span> 1, 2, 4</div>
+                            <div class="answer-option" data-correct="false" data-opt="D" onclick="checkAnswer(this)"><span>Г:</span> 3, 4, 5</div>
+                        </div>
+                    </div>
+                    
+                    <div class="points-tree">
+                        <div class="points-step" data-step="100"><span>100 БАЛЛОВ</span> <i class="fa-solid fa-star"></i></div>
+                        <div class="points-step" data-step="80"><span>80 БАЛЛОВ</span></div>
+                        <div class="points-step" data-step="60"><span>60 БАЛЛОВ</span></div>
+                        <div class="points-step" data-step="40"><span>40 БАЛЛОВ</span></div>
+                        <div class="points-step active" data-step="20"><span>20 БАЛЛОВ</span> <i class="fa-solid fa-chevron-left"></i></div>
+                        <div class="points-step" data-step="10"><span>10 БАЛЛОВ</span></div>
+                    </div>
+                </div>
+                <button class="next-question-btn" onclick="nextSlide()">Следующий вопрос</button>
+            </div>
+
+            <div class="presenter-cue-card">
+                <h4>🎤 Речь ведущего:</h4>
+                <p>
+                    «20 баллов! Вопрос на правописание гласных в корне. Здесь требуется максимальное внимание, ведь нужно сопоставить сразу несколько правил. Твой окончательный ответ?»
+                </p>
+            </div>
+        </div>
+
+        <!-- ==========================================
+             СЛАЙД 5: Вопрос 3 — Математика (40 баллов)
+             ========================================== -->
+        <div class="slide-container" id="slide5" data-slide-type="question" data-question-index="3">
+            <h2 class="slide-title">Математика — Уровень 3 (40 баллов)</h2>
+            <div class="content-area">
+                <div class="game-layout">
+                    <div class="main-game-board">
+                        <div class="question-box">Найдите корень уравнения:
+(1/4)^(1 - 3x) = 2^(x + 2)</div>
+                        <div class="answers-grid">
+                            <div class="answer-option" data-correct="false" data-opt="A" onclick="checkAnswer(this)"><span>А:</span> 0,5</div>
+                            <div class="answer-option" data-correct="false" data-opt="B" onclick="checkAnswer(this)"><span>Б:</span> 1,2</div>
+                            <div class="answer-option" data-correct="true" data-opt="C" onclick="checkAnswer(this)"><span>В:</span> 0,8</div>
+                            <div class="answer-option" data-correct="false" data-opt="D" onclick="checkAnswer(this)"><span>Г:</span> -0,4</div>
+                        </div>
+                    </div>
+                    
+                    <div class="points-tree">
+                        <div class="points-step" data-step="100"><span>100 БАЛЛОВ</span> <i class="fa-solid fa-star"></i></div>
+                        <div class="points-step" data-step="80"><span>80 БАЛЛОВ</span></div>
+                        <div class="points-step" data-step="60"><span>60 БАЛЛОВ</span></div>
+                        <div class="points-step active" data-step="40"><span>40 БАЛЛОВ</span> <i class="fa-solid fa-chevron-left"></i></div>
+                        <div class="points-step" data-step="20"><span>20 БАЛЛОВ</span></div>
+                        <div class="points-step" data-step="10"><span>10 БАЛЛОВ</span></div>
+                    </div>
+                </div>
+                <button class="next-question-btn" onclick="nextSlide()">Следующий вопрос</button>
+            </div>
+
+            <div class="presenter-cue-card">
+                <h4>🎤 Речь ведущего:</h4>
+                <p>
+                    «Переходим к профильной математике! Показательное уравнение. Приводим всё к основанию 2. Надеюсь, в уме считать вы еще не разучились? Каков итог вычислений?»
+                </p>
+            </div>
+        </div>
+
+        <!-- ==========================================
+             СЛАЙД 6: Вопрос 4 — Математика (60 баллов)
+             ========================================== -->
+        <div class="slide-container" id="slide6" data-slide-type="question" data-question-index="4">
+            <h2 class="slide-title">Математика — Уровень 4 (60 баллов)</h2>
+            <div class="content-area">
+                <div class="game-layout">
+                    <div class="main-game-board">
+                        <div class="question-box" style="font-size:15px; line-height:1.35;">В фирме такси в наличии 25 легковых автомобилей: 11 чёрного цвета с жёлтыми надписями на бортах, остальные — жёлтого цвета с чёрными надписями. 
+
+Найдите вероятность того, что на случайный вызов приедет машина жёлтого цвета с чёрными надписями.</div>
+                        <div class="answers-grid">
+                            <div class="answer-option" data-correct="false" data-opt="A" onclick="checkAnswer(this)"><span>А:</span> 0,44</div>
+                            <div class="answer-option" data-correct="true" data-opt="B" onclick="checkAnswer(this)"><span>Б:</span> 0,56</div>
+                            <div class="answer-option" data-correct="false" data-opt="C" onclick="checkAnswer(this)"><span>В:</span> 0,11</div>
+                            <div class="answer-option" data-correct="false" data-opt="D" onclick="checkAnswer(this)"><span>Г:</span> 0,25</div>
+                        </div>
+                    </div>
+                    
+                    <div class="points-tree">
+                        <div class="points-step" data-step="100"><span>100 БАЛЛОВ</span> <i class="fa-solid fa-star"></i></div>
+                        <div class="points-step" data-step="80"><span>80 БАЛЛОВ</span></div>
+                        <div class="points-step active" data-step="60"><span>60 БАЛЛОВ</span> <i class="fa-solid fa-chevron-left"></i></div>
+                        <div class="points-step" data-step="40"><span>40 БАЛЛОВ</span></div>
+                        <div class="points-step" data-step="20"><span>20 БАЛЛОВ</span></div>
+                        <div class="points-step" data-step="10"><span>10 БАЛЛОВ</span></div>
+                    </div>
+                </div>
+                <button class="next-question-btn" onclick="nextSlide()">Следующий вопрос</button>
+            </div>
+
+            <div class="presenter-cue-card">
+                <h4>🎤 Речь ведущего:</h4>
+                <p>
+                    «60 баллов на кону! Теория вероятностей. Какова вероятность того, что к нам приедет именно жёлтая машина? Посчитайте количество нужных машин от общего числа...»
+                </p>
+            </div>
+        </div>
+
+        <!-- ==========================================
+             СЛАЙД 7: Вопрос 5 — Русский язык (80 баллов)
+             ========================================== -->
+        <div class="slide-container" id="slide7" data-slide-type="question" data-question-index="5">
+            <h2 class="slide-title">Русский Язык — Уровень 5 (80 баллов)</h2>
+            <div class="content-area">
+                <div class="game-layout">
+                    <div class="main-game-board">
+                        <div class="question-box" style="font-size:14px; line-height:1.25;">Укажите варианты ответов, в которых во всех словах одного ряда пропущена одна и та же буква. Запишите номера ответов.
+
+1) (камень) пр..ткновения, пр..держать (товар), пр..смотрел (за ребёнком)
+2) пан..американский, транс..атлантический, пред..юбилейный
+3) пр..язык, пр..дедушка, пр..родина
+4) (не видно ни) ..ги, ..дание, бли..сидящий
+5) за..нтересованный, меж..нститутский, по..грать</div>
+                        <div class="answers-grid">
+                            <div class="answer-option" data-correct="false" data-opt="A" onclick="checkAnswer(this)"><span>А:</span> 1, 3, 5</div>
+                            <div class="answer-option" data-correct="true" data-opt="B" onclick="checkAnswer(this)"><span>Б:</span> 3, 4, 5</div>
+                            <div class="answer-option" data-correct="false" data-opt="C" onclick="checkAnswer(this)"><span>В:</span> 2, 4, 5</div>
+                            <div class="answer-option" data-correct="false" data-opt="D" onclick="checkAnswer(this)"><span>Г:</span> 1, 2, 4</div>
+                        </div>
+                    </div>
+                    
+                    <div class="points-tree">
+                        <div class="points-step" data-step="100"><span>100 БАЛЛОВ</span> <i class="fa-solid fa-star"></i></div>
+                        <div class="points-step active" data-step="80"><span>80 БАЛЛОВ</span> <i class="fa-solid fa-chevron-left"></i></div>
+                        <div class="points-step" data-step="60"><span>60 БАЛЛОВ</span></div>
+                        <div class="points-step" data-step="40"><span>40 БАЛЛОВ</span></div>
+                        <div class="points-step" data-step="20"><span>20 БАЛЛОВ</span></div>
+                        <div class="points-step" data-step="10"><span>10 БАЛЛОВ</span></div>
+                    </div>
+                </div>
+                <button class="next-question-btn" onclick="nextSlide()">Следующий вопрос</button>
+            </div>
+
+            <div class="presenter-cue-card">
+                <h4>🎤 Речь ведущего:</h4>
+                <p>
+                    «Вы на пороге финала — 80 баллов! Сложнейшие правила правописания приставок, суффиксов, Ъ и Ь знаков. Зал замер в ожидании... Какой вариант выберете?»
+                </p>
+            </div>
+        </div>
+
+        <!-- ==========================================
+             СЛАЙД 8: Вопрос 6 — Русский язык (100 баллов!)
+             ========================================== -->
+        <div class="slide-container" id="slide8" data-slide-type="question" data-question-index="6">
+            <h2 class="slide-title">Русский Язык — ФИНАЛ! (100 БАЛЛОВ!)</h2>
+            <div class="content-area">
+                <div class="game-layout">
+                    <div class="main-game-board">
+                        <div class="question-box" style="font-size:14px; line-height:1.25; border-color: #ffd700; background: linear-gradient(90deg, #1b1603 0%, #070817 50%, #1b1603 100%);">Укажите варианты ответов, в которых в обоих словах одного ряда пропущена одна и та же буква. Запишите номера ответов.
+
+1) (родители) тревож..тся, (автомобили) движ..тся
+2) выдел..шь (цветом), просмотр..шь (фильм)
+3) постро..вшие (дом), колебл..шься
+4) зави́с..вший (от нас), необита..мый (остров)
+5) щур..щийся (от солнца), те́рп..щий (бедствие)</div>
+                        <div class="answers-grid">
+                            <div class="answer-option" style="border-color: #ffd700;" data-correct="true" data-opt="A" onclick="checkAnswer(this)"><span>А:</span> 2, 4, 5</div>
+                            <div class="answer-option" data-correct="false" data-opt="B" onclick="checkAnswer(this)"><span>Б:</span> 1, 3, 5</div>
+                            <div class="answer-option" data-correct="false" data-opt="C" onclick="checkAnswer(this)"><span>В:</span> 1, 2, 4</div>
+                            <div class="answer-option" data-correct="false" data-opt="D" onclick="checkAnswer(this)"><span>Г:</span> 3, 4, 5</div>
+                        </div>
+                    </div>
+                    
+                    <div class="points-tree">
+                        <div class="points-step active milestone" data-step="100"><span>100 БАЛЛОВ</span> <i class="fa-solid fa-chevron-left"></i></div>
+                        <div class="points-step" data-step="80"><span>80 БАЛЛОВ</span></div>
+                        <div class="points-step" data-step="60"><span>60 БАЛЛОВ</span></div>
+                        <div class="points-step" data-step="40"><span>40 БАЛЛОВ</span></div>
+                        <div class="points-step" data-step="20"><span>20 БАЛЛОВ</span></div>
+                        <div class="points-step" data-step="10"><span>10 БАЛЛОВ</span></div>
+                    </div>
+                </div>
+                <button class="next-question-btn" onclick="nextSlide()">Перейти к награждению</button>
+            </div>
+
+            <div class="presenter-cue-card">
+                <h4>🎤 Речь ведущего:</h4>
+                <p>
+                    «Вот он — решающий момент всей игры! Финальный вопрос на 100 баллов! Правописание окончаний глаголов и суффиксов причастий. Самый коварный раздел ЕГЭ. Ошибиться нельзя!»
+                </p>
+            </div>
+        </div>
+
+        <!-- ==========================================
+             СЛАЙД 9: Победа! 
+             ========================================== -->
+        <div class="slide-container" id="slide9" style="background-image: linear-gradient(rgba(12, 13, 30, 0.9), rgba(12, 13, 30, 0.9)), url('https://mf.b37mrtl.ru/rbthmedia/images/2018.06/original/5b14f9c585600a5e1b40de10.jpg'); background-size: cover; background-position: center;">
+            <div class="content-area">
+                <div style="font-size: 70px; color: #ffd700; margin-bottom: 15px; animation: bounceIn 1s infinite alternate;"><i class="fa-solid fa-trophy"></i></div>
+                <h1 style="font-family: 'Russo One', sans-serif; color: #ffd700; text-align: center;">У НАС ЕСТЬ СТОБАЛЛЬНИК!</h1>
+                <p style="font-size: 20px; text-align: center; max-width: 800px; color: #ffffff; margin-top: 15px; font-weight: 500;">
+                    Вы с честью прошли все испытания школьной программы и доказали, что готовы к любым жизненным экзаменам!
+                </p>
+                <button class="next-question-btn" style="display: block; margin-top: 20px;" onclick="nextSlide()">Завершить презентацию</button>
+            </div>
+
+            <div class="presenter-cue-card" style="border-color: #ffd700;">
+                <h4>🎤 Речь ведущего (Финальное поздравление):</h4>
+                <p>
+                    «Да! Это абсолютно правильный ответ! Под ваши оглушительные аплодисменты мы поздравляем нашего победителя! Но на самом деле, дорогие выпускники, в этой игре побеждает каждый из вас. Ура!»
+                </p>
+            </div>
+        </div>
+
+        <!-- ==========================================
+             СЛАЙД 10: Советы Ведущему 
+             ========================================== -->
+        <div class="slide-container" id="slide10">
+            <h2 class="slide-title">Памятка ведущего (За кулисами)</h2>
+            <div class="content-area">
+                <div class="two-column-rules" style="grid-template-columns: 1.2fr 0.8fr;">
+                    <div class="rules-card" style="background: rgba(13, 17, 47, 0.8);">
+                        <h3><i class="fa-solid fa-circle-info"></i> Секреты успешного шоу</h3>
+                        <ul style="padding-left: 20px; font-size:13px;">
+                            <li><strong>Управление слайдами:</strong> Вы можете перелистывать слайды вручную кнопками "Пред." и "След." в нижнем левом углу. Это позволит вам легко вернуться назад.</li>
+                            <li><strong>Интерактив:</strong> Если участник ответил неверно (вариант подчеркнулся красным), вы можете предложить родителям в зале «выкупить» ошибку — спеть песню или рассказать стих, после чего нажать правильный ответ на слайде!</li>
+                            <li><strong>Подсказка 50/50:</strong> Кнопка уберет 2 случайных неверных ответа на текущем слайде и зачеркнет подсказку до самого конца игры.</li>
+                            <li><strong>Звуковая атмосфера:</strong> В презентацию встроен синтезатор звуков. При кликах на правильные/неправильные ответы будут раздаваться звуковые сигналы!</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="image-container-right">
+                        <img alt="Школьный класс" src="https://static.vecteezy.com/system/resources/thumbnails/038/971/243/small/ai-generated-classroom-school-interior-of-clean-spacious-classroom-ready-for-new-school-year-empty-room-with-white-walls-comfortable-desks-chairs-green-blackboard-whiteboard-back-to-school-photo.jpg">
+                    </div>
+                </div>
+            </div>
+
+            <div class="presenter-cue-card">
+                <h4>🎤 Речь ведущего (Финал):</h4>
+                <p>
+                    «Впереди вас ждут настоящие экзамены, но мы уверены — вы справитесь с ними так же легко! Спасибо учителям за бесконечное терпение, а вам, выпускники — счастливого пути в новую жизнь! С праздником!»
+                </p>
+            </div>
+        </div>
+
+        <!-- Панель ручного переключения для ведущего -->
+        <div class="admin-controls">
+            <button class="admin-btn" onclick="prevSlide()"><i class="fa-solid fa-arrow-left"></i> Назад</button>
+            <button class="admin-btn" onclick="nextSlide()">Вперед <i class="fa-solid fa-arrow-right"></i></button>
+        </div>
+
     </div>
 
     <script>
-        function showMemories() {
-            document.getElementById('start-screen').classList.add('hidden');
-            document.body.style.display = 'block'; 
-            document.getElementById('memory-tape').classList.remove('hidden');
-            window.scrollTo(0, 0);
-        }
+        // Глобальное состояние игры
+        let currentSlideIndex = 1;
+        const totalSlides = 10;
+        
+        // Глобальный статус подсказок (действует на всю игру)
+        const lifelinesState = {
+            fiftyFiftyUsed: false,
+            phoneFriendUsed: false,
+            audienceUsed: false
+        };
 
-        function showTimer() {
-            document.getElementById('memory-tape').classList.add('hidden');
-            document.body.style.display = 'flex'; 
-            document.getElementById('timer-screen').classList.remove('hidden');
-            window.scrollTo(0, 0);
-            startCountdown();
-        }
+        const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
 
-        function startCountdown() {
-            // Дата: 1 апреля 2026 года, 14:45
-            const targetDate = new Date("April 1, 2026 14:45:00").getTime();
-
-            const timerInterval = setInterval(function() {
-                const now = new Date().getTime();
-                const distance = targetDate - now;
-
-                const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-                const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-                const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-                const seconds = Math.floor((distance % (1000 * 60)) / 1000);
-
-                document.getElementById("timer-display").innerHTML = 
-                    `${days}д ${hours}ч ${minutes}м ${seconds}с`;
-
-                if (distance < 0) {
-                    clearInterval(timerInterval);
-                    document.getElementById("timer-display").innerHTML = "УЖЕ СКОРО! ❤️";
+        function playSound(type) {
+            try {
+                if (audioCtx.state === 'suspended') {
+                    audioCtx.resume();
                 }
-            }, 1000);
+
+                const osc = audioCtx.createOscillator();
+                const gain = audioCtx.createGain();
+                osc.connect(gain);
+                gain.connect(audioCtx.destination);
+
+                if (type === 'correct') {
+                    // Мажорное восходящее созвучие (Арпеджио)
+                    const now = audioCtx.currentTime;
+                    osc.type = 'triangle';
+                    gain.gain.setValueAtTime(0.15, now);
+                    gain.gain.exponentialRampToValueAtTime(0.01, now + 0.8);
+                    
+                    osc.frequency.setValueAtTime(523.25, now); // C5
+                    osc.frequency.setValueAtTime(659.25, now + 0.15); // E5
+                    osc.frequency.setValueAtTime(783.99, now + 0.3); // G5
+                    osc.frequency.setValueAtTime(1046.50, now + 0.45); // C6
+                    
+                    osc.start(now);
+                    osc.stop(now + 0.8);
+                } else if (type === 'incorrect') {
+                    // Драматический нисходящий звук
+                    const now = audioCtx.currentTime;
+                    osc.type = 'sawtooth';
+                    gain.gain.setValueAtTime(0.15, now);
+                    gain.gain.exponentialRampToValueAtTime(0.01, now + 0.6);
+                    
+                    osc.frequency.setValueAtTime(220.00, now); // A3
+                    osc.frequency.linearRampToValueAtTime(110.00, now + 0.5); // A2
+                    
+                    osc.start(now);
+                    osc.stop(now + 0.6);
+                } else if (type === 'lifeline') {
+                    // Быстрый космический свист
+                    const now = audioCtx.currentTime;
+                    osc.type = 'sine';
+                    gain.gain.setValueAtTime(0.1, now);
+                    gain.gain.exponentialRampToValueAtTime(0.01, now + 0.4);
+                    
+                    osc.frequency.setValueAtTime(800, now);
+                    osc.frequency.exponentialRampToValueAtTime(1500, now + 0.3);
+                    
+                    osc.start(now);
+                    osc.stop(now + 0.4);
+                }
+            } catch (err) {
+                console.log('Audio Context error: ', err);
+            }
         }
+
+        function showSlide(index) {
+            if (index < 1 || index > totalSlides) return;
+            
+            // Скрываем все слайды
+            document.querySelectorAll('.slide-container').forEach(slide => {
+                slide.classList.remove('active');
+            });
+
+            // Показываем нужный слайд
+            const activeSlide = document.getElementById('slide' + index);
+            if (activeSlide) {
+                activeSlide.classList.add('active');
+                currentSlideIndex = index;
+            }
+
+            // На слайде заставки (1), правил (2), победы (9) и памятки (10) скрываем панель подсказок
+            const lifelinesPanel = document.querySelector('.lifelines');
+            if (index === 1 || index === 2 || index === 9 || index === 10) {
+                lifelinesPanel.style.display = 'none';
+            } else {
+                lifelinesPanel.style.display = 'flex';
+                // Обновляем шкалу баллов на текущем слайде вопросов, чтобы она соответствовала текущей цене вопроса
+                syncActiveScoreStepOnLoad(activeSlide);
+            }
+        }
+
+        function nextSlide() {
+            showSlide(currentSlideIndex + 1);
+        }
+
+        function prevSlide() {
+            showSlide(currentSlideIndex - 1);
+        }
+
+        function checkAnswer(selectedOption) {
+            const currentSlide = selectedOption.closest('.slide-container');
+            const isCorrect = selectedOption.getAttribute('data-correct') === 'true';
+
+            if (isCorrect) {
+                // Если ответ верный
+                playSound('correct');
+                selectedOption.classList.add('correct');
+                
+                // Находим все неверные ответы на этом слайде и делаем их некликабельными
+                const allOptions = currentSlide.querySelectorAll('.answer-option');
+                allOptions.forEach(opt => {
+                    if (opt !== selectedOption) {
+                        opt.style.pointerEvents = 'none';
+                    }
+                });
+
+                // Увеличиваем шкалу баллов (делаем её более яркой/поднимаем active)
+                advancePointsTree(currentSlide);
+
+                // Плавно показываем кнопку "Следующий вопрос"
+                const nextBtn = currentSlide.querySelector('.next-question-btn');
+                if (nextBtn) {
+                    nextBtn.style.display = 'block';
+                }
+            } else {
+                // Если ответ неверный — просто подчеркиваем/зачеркиваем его красным
+                playSound('incorrect');
+                selectedOption.classList.add('incorrect');
+                // Снимаем возможность кликнуть на этот же неправильный повторно
+                selectedOption.style.pointerEvents = 'none';
+            }
+        }
+
+        // Синхронизация шкалы баллов при входе на слайд вопроса
+        function syncActiveScoreStepOnLoad(slide) {
+            if (!slide) return;
+            const qIndex = parseInt(slide.getAttribute('data-question-index'));
+            if (!qIndex) return;
+
+            const steps = [10, 20, 40, 60, 80, 100];
+            const currentStepValue = steps[qIndex - 1];
+
+            const pointsSteps = slide.querySelectorAll('.points-step');
+            pointsSteps.forEach(step => {
+                const stepVal = parseInt(step.getAttribute('data-step'));
+                if (stepVal === currentStepValue) {
+                    step.classList.add('active');
+                } else {
+                    step.classList.remove('active');
+                }
+            });
+        }
+
+        // Визуальное продвижение шкалы баллов на один пункт вверх при правильном ответе
+        function advancePointsTree(slide) {
+            const qIndex = parseInt(slide.getAttribute('data-question-index'));
+            if (!qIndex) return;
+
+            const steps = [10, 20, 40, 60, 80, 100];
+            // Текущее значение шага, которое должно стать «пройденным», а следующее — стать активным
+            const nextStepValue = steps[qIndex]; // индекс на 1 больше текущего индекса вопроса
+
+            const pointsSteps = slide.querySelectorAll('.points-step');
+            pointsSteps.forEach(step => {
+                const stepVal = parseInt(step.getAttribute('data-step'));
+                if (stepVal === nextStepValue) {
+                    step.classList.add('active');
+                    // Добавляем красивую иконку стрелочки, указывающую на новый рубеж
+                    if (!step.innerHTML.includes('chevron-left')) {
+                        step.innerHTML += ' <i class="fa-solid fa-chevron-left"></i>';
+                    }
+                } else {
+                    step.classList.remove('active');
+                    // Удаляем стрелочку с прошлых шагов
+                    const chevron = step.querySelector('.fa-chevron-left');
+                    if (chevron) chevron.remove();
+                }
+            });
+        }
+
+        function useFiftyFifty() {
+            if (lifelinesState.fiftyFiftyUsed) return;
+            
+            const activeSlide = document.querySelector('.slide-container.active');
+            // Проверяем, что сейчас активен именно слайд с вопросом
+            if (!activeSlide || activeSlide.getAttribute('data-slide-type') !== 'question') return;
+
+            playSound('lifeline');
+            lifelinesState.fiftyFiftyUsed = true;
+            
+            // Находим все кнопки 50:50 на странице и зачеркиваем их навсегда
+            const btn5050 = document.getElementById('lifeline-5050');
+            if (btn5050) btn5050.classList.add('used');
+
+            // Логика удаления двух неверных ответов на текущем слайде
+            const options = Array.from(activeSlide.querySelectorAll('.answer-option'));
+            const incorrectOptions = options.filter(opt => opt.getAttribute('data-correct') === 'false');
+
+            // Перемешиваем массив неправильных ответов и скрываем первые два
+            const shuffledIncorrect = incorrectOptions.sort(() => 0.5 - Math.random());
+            shuffledIncorrect.slice(0, 2).forEach(opt => {
+                opt.classList.add('hidden-option');
+                opt.style.pointerEvents = 'none'; // Запрещаем на них кликать
+            });
+        }
+
+        function usePhoneFriend() {
+            if (lifelinesState.phoneFriendUsed) return;
+            
+            const activeSlide = document.querySelector('.slide-container.active');
+            if (!activeSlide || activeSlide.getAttribute('data-slide-type') !== 'question') return;
+
+            playSound('lifeline');
+            lifelinesState.phoneFriendUsed = true;
+
+            const btnPhone = document.getElementById('lifeline-phone');
+            if (btnPhone) btnPhone.classList.add('used');
+        }
+
+        function useAudience() {
+            if (lifelinesState.audienceUsed) return;
+            
+            const activeSlide = document.querySelector('.slide-container.active');
+            if (!activeSlide || activeSlide.getAttribute('data-slide-type') !== 'question') return;
+
+            playSound('lifeline');
+            lifelinesState.audienceUsed = true;
+
+            const btnAudience = document.getElementById('lifeline-audience');
+            if (btnAudience) btnAudience.classList.add('used');
+        }
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowRight' || e.key === 'Space') {
+                nextSlide();
+            } else if (e.key === 'ArrowLeft') {
+                prevSlide();
+            }
+        });
     </script>
 </body>
 </html>
