@@ -8,7 +8,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Russo+One&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    
+
     <style>
         * {
             box-sizing: border-box;
@@ -87,7 +87,7 @@
             height: 100%;
             pointer-events: none;
             z-index: 1;
-            background: 
+            background:
                 radial-gradient(circle at 5% 15%, rgba(0, 240, 255, 0.05) 0%, transparent 35%),
                 radial-gradient(circle at 95% 85%, rgba(255, 215, 0, 0.05) 0%, transparent 35%);
         }
@@ -224,7 +224,7 @@
             border-radius: 20px;
             box-shadow: 0 0 15px rgba(255, 215, 0, 0.15);
             color: #ffffff;
-            font-size: 17px;
+            font-size: 25px;
             font-weight: 600;
             padding: 15px 25px;
             text-align: center;
@@ -297,7 +297,7 @@
             border-radius: 15px;
             color: #ffffff;
             cursor: pointer;
-            font-size: 15px;
+            font-size: 25px;
             padding: 14px 20px;
             text-align: left;
             transition: all 0.2s ease;
@@ -481,7 +481,7 @@
 <body>
 
     <div class="scale-container">
-        
+
         <div class="presentation-wrapper" id="presentation">
             <div class="bg-decor"></div>
 
@@ -514,7 +514,7 @@
                                 <li>При ошибке мы не сбрасываем баллы — на Последнем звонке у всех должен быть шанс отыграться!</li>
                             </ul>
                         </div>
-                        
+
                         <div class="rules-card">
                             <h3><i class="fa-solid fa-circle-question"></i> Доступные подсказки</h3>
                             <ul style="list-style-type: none; padding-left: 0;">
@@ -547,7 +547,7 @@
                                 <div class="answer-option" data-correct="false" data-opt="D" onclick="checkAnswer(this)"><span>Г:</span> ПартЕр</div>
                             </div>
                         </div>
-                        
+
                         <div class="points-tree">
                             <div class="points-step" data-step="100"><span>100 БАЛЛОВ</span> <i class="fa-solid fa-star"></i></div>
                             <div class="points-step" data-step="80"><span>80 БАЛЛОВ</span></div>
@@ -566,21 +566,17 @@
                 <div class="content-area">
                     <div class="game-layout">
                         <div class="main-game-board">
-                            <div class="question-box" style="font-size:14px; line-height:1.25;">Укажите варианты ответов, в которых во всех словах одного ряда пропущена одна и та же буква. Запишите номера ответов.
-     
-1) прил..скать, п..лисадник, экз..менатор 
-2) изв..ниться, св..ла (ребёнка по лестнице), ун..кальный 
-3) к..нонада, заг..дать, выр..внять (стены)
-4) ч..столюбие, гал..рея, оп..реться
-5) зап..рать (на замок), оф..цер, ст..лист</div>
-                            <div class="answers-grid">
-                                <div class="answer-option" data-correct="false" data-opt="A" onclick="checkAnswer(this)"><span>А:</span> 2, 3, 5</div>
-                                <div class="answer-option" data-correct="true" data-opt="B" onclick="checkAnswer(this)"><span>Б:</span> 1, 4, 5</div>
-                                <div class="answer-option" data-correct="false" data-opt="C" onclick="checkAnswer(this)"><span>В:</span> 1, 2, 4</div>
-                                <div class="answer-option" data-correct="false" data-opt="D" onclick="checkAnswer(this)"><span>Г:</span> 3, 4, 5</div>
-                            </div>
+                            <div class="question-box" style="font-size: 25px; line-height: 1.4;">
+  Укажите слово, в котором пропущена чередующаяся гласная корня:
+</div>
+<div class="answers-grid" style="font-size: 22px;">
+  <div class="answer-option" data-correct="false" data-opt="A" onclick="checkAnswer(this)"><span>А:</span> 404 error </div>
+  <div class="answer-option" data-correct="false" data-opt="B" onclick="checkAnswer(this)"><span>Б:</span> к..мпонент</div>
+  <div class="answer-option" data-correct="true" data-opt="C" onclick="checkAnswer(this)"><span>В:</span> заг..релый</div>
+  <div class="answer-option" data-correct="false" data-opt="D" onclick="checkAnswer(this)"><span>Г:</span> оп..здать</div>
+</div>
                         </div>
-                        
+
                         <div class="points-tree">
                             <div class="points-step" data-step="100"><span>100 БАЛЛОВ</span> <i class="fa-solid fa-star"></i></div>
                             <div class="points-step" data-step="80"><span>80 БАЛЛОВ</span></div>
@@ -600,27 +596,27 @@
                     <div class="game-layout">
                         <div class="main-game-board">
                             <div class="question-box">
-                                <span>Найдите корень уравнения:</span>
-                                <div class="math-expr">
-                                    <span class="math-parentheses">(</span>
-                                    <div class="math-fraction">
-                                        <div class="math-num">1</div>
-                                        <div class="math-den">4</div>
-                                    </div>
-                                    <span class="math-parentheses">)</span>
-                                    <span class="math-supscript">1 - 3x</span>
-                                    <span>= 2</span>
-                                    <span class="math-supscript" style="margin-left: 0;">x + 2</span>
-                                </div>
-                            </div>
+    <span style="font-size: 25px; margin-bottom: 10px;">Найдите корень уравнения:</span>
+    <div class="math-expr" style="font-size: 32px; gap: 6px;">
+        <span class="math-parentheses" style="font-size: 46px;">(</span>
+        <div class="math-fraction" style="font-size: 26px; padding: 0 6px;">
+            <div class="math-num" style="border-bottom: 3px solid #ffffff; padding-bottom: 4px;">1</div>
+            <div class="math-den" style="padding-top: 4px;">4</div>
+        </div>
+        <span class="math-parentheses" style="font-size: 46px;">)</span>
+        <span class="math-supscript" style="font-size: 20px; margin-top: -14px; margin-left: 4px;">1 - 3x</span>
+        <span>= 2</span>
+        <span class="math-supscript" style="font-size: 20px; margin-top: -14px; margin-left: 4px;">x + 2</span>
+    </div>
+</div>
                             <div class="answers-grid">
                                 <div class="answer-option" data-correct="false" data-opt="A" onclick="checkAnswer(this)"><span>А:</span> 0,5</div>
-                                <div class="answer-option" data-correct="false" data-opt="B" onclick="checkAnswer(this)"><span>Б:</span> 1,2</div>
+                                <div class="answer-option" data-correct="false" data-opt="B" onclick="checkAnswer(this)"><span>Б:</span> немало </div>
                                 <div class="answer-option" data-correct="true" data-opt="C" onclick="checkAnswer(this)"><span>В:</span> 0,8</div>
                                 <div class="answer-option" data-correct="false" data-opt="D" onclick="checkAnswer(this)"><span>Г:</span> -0,4</div>
                             </div>
                         </div>
-                        
+
                         <div class="points-tree">
                             <div class="points-step" data-step="100"><span>100 БАЛЛОВ</span> <i class="fa-solid fa-star"></i></div>
                             <div class="points-step" data-step="80"><span>80 БАЛЛОВ</span></div>
@@ -639,17 +635,18 @@
                 <div class="content-area">
                     <div class="game-layout">
                         <div class="main-game-board">
-                            <div class="question-box" style="font-size:15px; line-height:1.35;">В фирме такси в наличии 25 легковых автомобилей: 11 чёрного цвета с жёлтыми надписями на бортах, остальные — жёлтого цвета с чёрными надписями. 
-
-Найдите вероятность того, что на случайный вызов приедет машина жёлтого цвета с чёрными надписями.</div>
-                            <div class="answers-grid">
-                                <div class="answer-option" data-correct="false" data-opt="A" onclick="checkAnswer(this)"><span>А:</span> 0,44</div>
-                                <div class="answer-option" data-correct="true" data-opt="B" onclick="checkAnswer(this)"><span>Б:</span> 0,56</div>
-                                <div class="answer-option" data-correct="false" data-opt="C" onclick="checkAnswer(this)"><span>В:</span> 0,11</div>
-                                <div class="answer-option" data-correct="false" data-opt="D" onclick="checkAnswer(this)"><span>Г:</span> 0,25</div>
-                            </div>
+                            <div class="question-box" style="font-size: 23px; line-height: 1.4;">
+  На выпускное чаепитие привезли 20 пирожных: 5 с клубникой, остальные с шоколадом.
+  Найдите вероятность того, что первому участнику достанется пирожное с шоколадом.
+</div>
+<div class="answers-grid" style="font-size: 22px;">
+  <div class="answer-option" data-correct="false" data-opt="A" onclick="checkAnswer(this)"><span>А:</span> 100% я первый</div>
+  <div class="answer-option" data-correct="false" data-opt="B" onclick="checkAnswer(this)"><span>Б:</span> 0,25</div>
+  <div class="answer-option" data-correct="true" data-opt="C" onclick="checkAnswer(this)"><span>В:</span> 0,75</div>
+  <div class="answer-option" data-correct="false" data-opt="D" onclick="checkAnswer(this)"><span>Г:</span> 0,6</div>
+</div>
                         </div>
-                        
+
                         <div class="points-tree">
                             <div class="points-step" data-step="100"><span>100 БАЛЛОВ</span> <i class="fa-solid fa-star"></i></div>
                             <div class="points-step" data-step="80"><span>80 БАЛЛОВ</span></div>
@@ -668,21 +665,17 @@
                 <div class="content-area">
                     <div class="game-layout">
                         <div class="main-game-board">
-                            <div class="question-box" style="font-size:14px; line-height:1.25;">Укажите варианты ответов, в которых во всех словах одного ряда пропущена одна и та же буква. Запишите номера ответов.
-
-1) (камень) пр..ткновения, пр..держать (товар), пр..смотрел (за ребёнком)
-2) пан..американский, транс..атлантический, пред..юбилейный
-3) пр..язык, пр..дедушка, пр..родина
-4) (не видно ни) ..ги, ..дание, бли..сидящий
-5) за..нтересованный, меж..нститутский, по..грать</div>
-                            <div class="answers-grid">
-                                <div class="answer-option" data-correct="false" data-opt="A" onclick="checkAnswer(this)"><span>А:</span> 1, 3, 5</div>
-                                <div class="answer-option" data-correct="true" data-opt="B" onclick="checkAnswer(this)"><span>Б:</span> 3, 4, 5</div>
-                                <div class="answer-option" data-correct="false" data-opt="C" onclick="checkAnswer(this)"><span>В:</span> 2, 4, 5</div>
-                                <div class="answer-option" data-correct="false" data-opt="D" onclick="checkAnswer(this)"><span>Г:</span> 1, 2, 4</div>
-                            </div>
+                            <div class="question-box" style="font-size: 25px; line-height: 1.4;">
+  В каком ряду во всех словах пропущена буква И?
+</div>
+<div class="answers-grid" style="font-size: 20px;">
+  <div class="answer-option" data-correct="false" data-opt="A" onclick="checkAnswer(this)"><span>А:</span> six seven</div>
+  <div class="answer-option" data-correct="false" data-opt="B" onclick="checkAnswer(this)"><span>Б:</span> они увид..т, слыш..мый звук</div>
+  <div class="answer-option" data-correct="true" data-opt="C" onclick="checkAnswer(this)"><span>В:</span> он закрут..т, ненавид..мый всеми</div>
+  <div class="answer-option" data-correct="false" data-opt="D" onclick="checkAnswer(this)"><span>Г:</span> колыш..тся знамёна, ла..щая собака</div>
+</div>
                         </div>
-                        
+
                         <div class="points-tree">
                             <div class="points-step" data-step="100"><span>100 БАЛЛОВ</span> <i class="fa-solid fa-star"></i></div>
                             <div class="points-step active" data-step="80"><span>80 БАЛЛОВ</span> <i class="fa-solid fa-chevron-left"></i></div>
@@ -697,25 +690,25 @@
             </div>
 
             <div class="slide-container" id="slide8" data-slide-type="question" data-question-index="6">
-                <h2 class="slide-title">Русский Язык — ФИНАЛ! (100 БАЛЛОВ!)</h2>
+                <h2 class="slide-title">Математика — ФИНАЛ! (100 БАЛЛОВ!)</h2>
                 <div class="content-area">
                     <div class="game-layout">
                         <div class="main-game-board">
-                            <div class="question-box" style="font-size:14px; line-height:1.25; border-color: #ffd700; background: linear-gradient(90deg, #1b1603 0%, #070817 50%, #1b1603 100%);">Укажите варианты ответов, в которых в обоих словах одного ряда пропущена одна и та же буква. Запишите номера ответов.
-
-1) (родители) тревож..тся, (автомобили) движ..тся
-2) выдел..шь (цветом), просмотр..шь (фильм)
-3) постро..вшие (дом), колебл..шься
-4) зави́с..вший (от нас), neoбита..мый (остров)
-5) щур..щийся (от солнца), те́рп..щий (бедствие)</div>
-                            <div class="answers-grid">
-                                <div class="answer-option" data-correct="true" data-opt="A" onclick="checkAnswer(this)"><span>А:</span> 2, 4, 5</div>
-                                <div class="answer-option" data-correct="false" data-opt="B" onclick="checkAnswer(this)"><span>Б:</span> 1, 3, 5</div>
-                                <div class="answer-option" data-correct="false" data-opt="C" onclick="checkAnswer(this)"><span>В:</span> 1, 2, 4</div>
-                                <div class="answer-option" data-correct="false" data-opt="D" onclick="checkAnswer(this)"><span>Г:</span> 3, 4, 5</div>
-                            </div>
+                            <div class="question-box">
+  <span style="font-size: 25px; margin-bottom: 15px;">Найдите корень уравнения:</span>
+  <div style="font-size: 35px; font-family: 'Times New Roman', serif; font-style: italic; display: flex; align-items: center; justify-content: center; gap: 5px;">
+    <span>log</span><sub style="font-size: 18px; vertical-align: sub; margin-left: 2px; font-style: normal;">3</sub>
+    <span>(2x - 1) = 3</span>
+  </div>
+</div>
+<div class="answers-grid" style="font-size: 22px;">
+  <div class="answer-option" data-correct="false" data-opt="A" onclick="checkAnswer(this)"><span>А:</span> 5</div>
+  <div class="answer-option" data-correct="true" data-opt="B" onclick="checkAnswer(this)"><span>Б:</span> 14</div>
+  <div class="answer-option" data-correct="false" data-opt="C" onclick="checkAnswer(this)"><span>В:</span> 4</div>
+  <div class="answer-option" data-correct="false" data-opt="D" onclick="checkAnswer(this)"><span>Г:</span> А.П. Чехов</div>
+</div>
                         </div>
-                        
+
                         <div class="points-tree">
                             <div class="points-step active milestone" data-step="100"><span>100 БАЛЛОВ</span> <i class="fa-solid fa-chevron-left"></i></div>
                             <div class="points-step" data-step="80"><span>80 БАЛЛОВ</span></div>
@@ -752,7 +745,7 @@
         // Глобальное состояние игры
         let currentSlideIndex = 1;
         const totalSlides = 9; // Скорректировано до 9 реальных слайдов
-        
+
         // Статус подсказок (на всю игру)
         const lifelinesState = {
             fiftyFiftyUsed: false,
@@ -779,12 +772,12 @@
                     osc.type = 'triangle';
                     gain.gain.setValueAtTime(0.15, now);
                     gain.gain.exponentialRampToValueAtTime(0.01, now + 0.8);
-                    
+
                     osc.frequency.setValueAtTime(523.25, now);     // C5
                     osc.frequency.setValueAtTime(659.25, now + 0.15); // E5
                     osc.frequency.setValueAtTime(783.99, now + 0.3);  // G5
                     osc.frequency.setValueAtTime(1046.50, now + 0.45);// C6
-                    
+
                     osc.start(now);
                     osc.stop(now + 0.8);
                 } else if (type === 'incorrect') {
@@ -792,10 +785,10 @@
                     osc.type = 'sawtooth';
                     gain.gain.setValueAtTime(0.15, now);
                     gain.gain.exponentialRampToValueAtTime(0.01, now + 0.6);
-                    
+
                     osc.frequency.setValueAtTime(220.00, now); // A3
                     osc.frequency.linearRampToValueAtTime(110.00, now + 0.5); // A2
-                    
+
                     osc.start(now);
                     osc.stop(now + 0.6);
                 } else if (type === 'lifeline') {
@@ -803,10 +796,10 @@
                     osc.type = 'sine';
                     gain.gain.setValueAtTime(0.1, now);
                     gain.gain.exponentialRampToValueAtTime(0.01, now + 0.4);
-                    
+
                     osc.frequency.setValueAtTime(800, now);
                     osc.frequency.exponentialRampToValueAtTime(1500, now + 0.3);
-                    
+
                     osc.start(now);
                     osc.stop(now + 0.4);
                 }
@@ -817,12 +810,12 @@
 
         function showSlide(index) {
             if (index < 1 || index > totalSlides) return;
-            
+
             // Скрываем все слайды
             document.querySelectorAll('.slide-container').forEach(slide => {
                 slide.classList.remove('active');
             });
-            
+
             // Показываем нужный слайд
             const activeSlide = document.getElementById('slide' + index);
             if (activeSlide) {
@@ -855,7 +848,7 @@
             if (isCorrect) {
                 playSound('correct');
                 selectedOption.classList.add('correct');
-                
+
                 // Блокируем остальные варианты
                 const allOptions = currentSlide.querySelectorAll('.answer-option');
                 allOptions.forEach(opt => {
@@ -863,9 +856,9 @@
                         opt.style.pointerEvents = 'none';
                     }
                 });
-                
+
                 advancePointsTree(currentSlide);
-                
+
                 const nextBtn = currentSlide.querySelector('.next-question-btn');
                 if (nextBtn) {
                     nextBtn.style.display = 'block';
@@ -928,10 +921,10 @@
             if (lifelinesState.fiftyFiftyUsed) return;
             const activeSlide = document.querySelector('.slide-container.active');
             if (!activeSlide || activeSlide.getAttribute('data-slide-type') !== 'question') return;
-            
+
             playSound('lifeline');
             lifelinesState.fiftyFiftyUsed = true;
-            
+
             const btn5050 = document.getElementById('lifeline-5050');
             if (btn5050) btn5050.classList.add('used');
 
@@ -983,15 +976,15 @@
             const wrapper = document.getElementById('presentation');
             const targetWidth = 1280;
             const targetHeight = 720;
-            
+
             const windowWidth = window.innerWidth;
             const windowHeight = window.innerHeight;
-            
+
             // Находим минимальный коэффициент масштабирования
             const scaleX = windowWidth / targetWidth;
             const scaleY = windowHeight / targetHeight;
             const scale = Math.min(scaleX, scaleY);
-            
+
             // Применяем CSS Transform к контейнеру игры
             wrapper.style.transform = `scale(${scale})`;
         }
